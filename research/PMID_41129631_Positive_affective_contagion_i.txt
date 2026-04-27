@@ -1,0 +1,8 @@
+TITLE: Positive affective contagion in bumble bees.
+AUTHORS: Jos&#xe9; E Romero-Gonz&#xe1;lez, Zhenwei Zhuo, Lulu Chen, Chaoyang Peng, Cwyn Solvi, Fei Peng
+JOURNAL: Science (New York, N.Y.)
+DATE: 2025 Oct
+PMID: 41129631
+
+ABSTRACT:
+Affective contagion, a core component of empathy, has been widely characterized in social vertebrates but its existence in any invertebrate is unknown. Using a cognitive bias paradigm we demonstrate positive affective contagion in bumble bees. After being trained on colored flowers with different reinforcements, bees that interacted with a conspecific in a positive affective state were quicker and more likely than controls to land on ambiguous colored flowers, indicating the transfer of a positive judgment bias between bees. Additional observations and experiments showed that affect could be transmitted between bees without physical contact, i.e., through visual modality alone. Our findings suggest that affective contagion may be an evolutionarily widespread mechanism present in both social vertebrates and social insects.

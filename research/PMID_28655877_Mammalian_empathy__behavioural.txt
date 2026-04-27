@@ -1,0 +1,8 @@
+TITLE: Mammalian empathy: behavioural manifestations and neural basis.
+AUTHORS: Frans B M de Waal, Stephanie D Preston
+JOURNAL: Nature reviews. Neuroscience
+DATE: 2017 Aug
+PMID: 28655877
+
+ABSTRACT:
+Recent research on empathy in humans and other mammals seeks to dissociate emotional and cognitive empathy. These forms, however, remain interconnected in evolution, across species and at the level of neural mechanisms. New data have facilitated the development of empathy models such as the perception-action model (PAM) and mirror-neuron theories. According to the PAM, the emotional states of others are understood through personal, embodied representations that allow empathy and accuracy to increase based on the observer's past experiences. In this Review, we discuss the latest evidence from studies carried out across a wide range of species, including studies on yawn contagion, consolation, aid-giving and contagious physiological affect, and we summarize neuroscientific data on representations related to another's state.

@@ -1,0 +1,14 @@
+TITLE: Outcomes of chronic total occlusion percutaneous coronary intervention from the RAIAN (RAjaie - Iran) registry.
+AUTHORS: Bahram Mohebbi, Parham Sadeghipour, Reza Zolfaghari, Giuseppe Vadal&#xe0;, Ehsan Khalilipur, Ali Zahedmehr, Davide Diana, Mohsen Maadani, Farshad Shakerian, Reza Kiani, Zahara Hosseini, Alireza Rashidinejad, Mostafa Rouzitalab, Somayeh Khalesi, Vahid Toulabi, Vincenzo Sucato, Luca Di Fazio, Maisam Taherian, Saeed Amiripouya, Shahrzad Ashuri, Ayatollah Bayatian, Sajad Naderi, Hooman Bakhshandeh, Jamal Moosavi, Seifollah Abdi, Ata Firouzi, Mohammad Javad Alemzadeh-Ansari, Alfredo R Galassi
+JOURNAL: Indian heart journal
+DATE: 2023
+PMID: 37866775
+
+ABSTRACT:
+OBJECTIVE: While most of the evidence in CTO interventions emerge from Western and Japanese studies, few data have been published up today from the Middle East. Objective of this study was to evaluate technical success rates and clinical outcomes of an Iranian population undergoing CTO PCI in a tertiary referral hospital. Moreover, we sought to evaluate the efficacy of our CTO teaching program.
+
+METHODS: This is a retrospective single-center cohort study including 790 patients who underwent CTO PCI performed by operators with different volumes of CTOs PCI performed per year. According to PCI result, all patients have been divided into successful (n&#xa0;=&#xa0;555, 70.3&#xa0;%) and unsuccessful (n&#xa0;=&#xa0;235, 29.7&#xa0;%) groups. Study endpoints were Major Adverse Cardiovascular Events and Health Status Improvement evaluated using the Seattle Angina Questionnaire at one year.
+
+RESULTS: A global success rate of 70&#xa0;% for antegrade and 80&#xa0;% for retrograde approach was shown despite the lack of some CTO-dedicated devices. During the enrollment period, the success rate increased significantly among operators with a lower number of CTO procedures per year. One-year MACE rate was similar in both successful and unsuccessful groups (13.5&#xa0;% in successful and 10.6&#xa0;% in unsuccessful group, p&#xa0;=&#xa0;0.173). One year patients' health status improved significantly only in successful group.
+
+CONCLUSIONS: No significant differences of in-hospital and one-year MACE were found between the successful and unsuccessful groups. Angina symptoms and quality of life significantly improved after successful CTO PCI. The RAIAN registry confirmed the importance of operator expertise for CTO PCI success.

@@ -1,0 +1,12 @@
+TITLE: Effectiveness, safety, and patient reported outcomes of a planned investment procedure in higher-risk chronic total occlusion percutaneous coronary intervention:&#xa0;Rationale and design of the invest-CTO study.
+AUTHORS: Anja &#xd8;ksnes, Elisabeth Skaar, Britt Engan, &#xd8;yvind Bleie, Kjetil H L&#xf8;land, Nadia Taoussi, Akiko Maheran, Tone Merete Norekv&#xe5;l, Svein Rotevatn, Margaret B McEntegart
+JOURNAL: Catheterization and cardiovascular interventions : official journal of the Society for Cardiac Angiography & Interventions
+DATE: 2023 Jul
+PMID: 37194723
+
+ABSTRACT:
+BACKGROUND: The anatomical complexity of a chronic total occlusion (CTO) correlates with procedural failure and complication rates. CTO modification after unsuccessful crossing has been associated with subsequent higher technical success rates, but complication rates remain high with this approach. While successful CTO percutaneous coronary intervention (PCI) has been associated with improved angina and quality of life (QOL) this has not been demonstrated in anatomically high-risk CTOs. Whether a planned CTO modification procedure, hereafter named Investment procedure, could improve patient outcomes has never been investigated.
+
+STUDY DESIGN: Invest-CTO is a prospective, single-arm, international, multicenter study, evaluating the effectiveness and safety of a planned investment procedure, with a subsequent completion CTO PCI (at 8-12 weeks), in anatomically high-risk CTOs. We will enroll 200 patients with CTOs defined as high-risk according to our Invest CTO criteria at centers in Norway and United Kingdom.&#xa0;Patients with aorto-ostial lesions, occlusion within a previous stent, or a prior attempt at target vessel CTO PCI within 6 months will be excluded. The co-primary endpoints are cumulative procedural success (%) after both procedures, and a composite safety endpoint at 30 days after completion CTO PCI. Patient reported outcomes (PROs), treatment satisfaction, and clinical endpoints will be reported.
+
+CONCLUSION: This study will prospectively evaluate the effectiveness and safety of a planned two staged PCI procedure in the treatment of high-risk CTOs and may have the potential to change current clinical practice.

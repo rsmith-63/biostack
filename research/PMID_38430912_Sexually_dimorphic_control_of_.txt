@@ -1,0 +1,8 @@
+TITLE: Sexually dimorphic control of affective state processing and empathic behaviors.
+AUTHORS: Shunchang Fang, Zhengyi Luo, Zicheng Wei, Yuxin Qin, Jieyan Zheng, Hongyang Zhang, Jianhua Jin, Jiali Li, Chenjian Miao, Shana Yang, Yonglin Li, Zirui Liang, Xiao-Dan Yu, Xiao Min Zhang, Wei Xiong, Hongying Zhu, Wen-Biao Gan, Lianyan Huang, Boxing Li
+JOURNAL: Neuron
+DATE: 2024 May
+PMID: 38430912
+
+ABSTRACT:
+Recognizing the affective states of social counterparts and responding appropriately fosters successful social interactions. However, little is known about how the affective states are expressed and perceived and how they influence social decisions. Here, we show that male and female mice emit distinct olfactory cues after experiencing distress. These cues activate distinct neural circuits in the piriform cortex (PiC) and evoke sexually dimorphic empathic behaviors in observers. Specifically, the PiC &#x2192; PrL pathway is activated in female observers, inducing a social preference for the distressed counterpart. Conversely, the PiC &#x2192; MeA pathway is activated in male observers, evoking excessive self-grooming behaviors. These pathways originate from non-overlapping PiC neuron populations with distinct gene expression signatures regulated by transcription factors and sex hormones. Our study unveils how internal states of social counterparts are processed through sexually dimorphic mechanisms at the molecular, cellular, and circuit levels and offers insights into the neural mechanisms underpinning sex differences in higher brain functions.

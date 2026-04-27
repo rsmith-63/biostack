@@ -1,0 +1,1 @@
+pbpaste > google-translate-fix.md

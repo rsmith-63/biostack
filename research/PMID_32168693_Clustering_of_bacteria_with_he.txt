@@ -1,0 +1,8 @@
+TITLE: Clustering of bacteria with heterogeneous motility.
+AUTHORS: T Vourc'h, J L&#xe9;opold&#xe8;s, H Peerhossaini
+JOURNAL: Physical review. E
+DATE: 2020 Feb
+PMID: 32168693
+
+ABSTRACT:
+We study the clustering of a model cyanobacterium Synechocystis into microcolonies. The bacteria are allowed to diffuse onto surfaces of different hardness and interact with the others by aggregation and detachment. We find that soft surfaces give rise to more microcolonies than hard ones. This effect is related to the amount of heterogeneity of bacteria's dynamics as given by the proportion of motile cells. A kinetic model that emphasizes specific interactions between cells, complemented by extensive numerical simulations considering various amounts of motility, describes the experimental results adequately. The high proportion of motile cells enhances dispersion rather than aggregation.

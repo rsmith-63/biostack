@@ -1,0 +1,22 @@
+The server and client have been successfully modified to use PMID-based pagination instead of the Entrez history tokens
+  (webEnv/queryKey), as the underlying MCP server tool does not currently support history in its schema.
+
+  Summary of Changes:
+   1. Server (index.js):
+       * Updated pubmedSearchSchema to remove usehistory and increase the default maxResults to 100 to allow for initial client-side
+         pagination.
+       * Updated the /api/pubmed/search route to return an array of all discovered PMIDs (allPmids) to the client, while still fetching
+         details for the first 20 articles to ensure immediate results.
+       * Simplified the /api/pubmed/fetch route to accept an array of pmids directly, fetching their detailed content via
+         pubmed_fetch_contents.
+       * Added robust JSON parsing for all MCP tool outputs and error states to ensure consistent JSON responses to the frontend.
+   2. Client (PubmedSearch.jsx):
+       * Removed webEnv and queryKey from the state.
+       * Added allPmids state to store the list of IDs returned by the search.
+       * Updated handlePageChange to slice the allPmids array for the requested page and send those specific IDs to the server for
+         detailed fetching.
+       * Updated handleSearch to capture the allPmids list from the new search response.
+       * Updated totalPages logic to reflect the number of pages available within the fetched PMID list.
+
+  These changes ensure a reliable pagination experience that bypasses the history-token issue while maintaining performance by only
+  fetching full abstracts when a user navigates to a specific page.

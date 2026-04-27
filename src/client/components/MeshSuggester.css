@@ -1,0 +1,139 @@
+.mesh-suggester {
+  margin: 15px 0;
+  padding: 15px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.mesh-lookup-btn {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.mesh-lookup-btn:hover:not(:disabled) {
+  background-color: var(--accent-hover);
+}
+
+.mesh-lookup-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: var(--border-color);
+}
+
+.spinner-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.loader {
+  border: 3px solid var(--bg-primary);
+  border-top: 3px solid var(--accent-color);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.suggestions-list {
+  margin-top: 15px;
+}
+
+.suggestions-list h4 {
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+.mesh-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.mesh-tag {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.mesh-tag:hover {
+  background: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+}
+
+.date-filter-panel {
+  border-left: 1px solid var(--border-color);
+  transition: border-color 0.3s ease;
+}
+
+@media (max-width: 600px) {
+  .date-filter-panel {
+    border-left: none;
+    border-top: 1px solid var(--border-color);
+    padding-left: 0 !important;
+    padding-top: 20px;
+    margin-top: 10px;
+  }
+}
+
+.date-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.date-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 1px var(--accent-color);
+}
+
+.date-apply-btn {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  margin-top: 4px;
+  transition: background-color 0.2s;
+}
+
+.date-apply-btn:hover {
+  background-color: var(--accent-hover);
+}
+
+.error-message, .no-suggestions-msg {
+  font-size: 0.85rem;
+  margin-top: 10px;
+  color: var(--text-secondary);
+}

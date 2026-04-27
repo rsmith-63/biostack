@@ -1,0 +1,8 @@
+TITLE: Role of Nanocarrier Systems in Drug Delivery for Overcoming Multi-Drug Resistance in Bacteria.
+AUTHORS: Alaa Talal Qumsani
+JOURNAL: Pakistan journal of biological sciences : PJBS
+DATE: 2023 Feb
+PMID: 37480270
+
+ABSTRACT:
+Multidrug-resistant (MDR) bacteria have risen alarmingly in the last few decades, posing a serious threat to human health. The need for effective bacterial resistance treatment is urgent and unmet due to the rise in morbidity and mortality that has coincided with the prevalence of infections caused by MDR bacteria. Using its creative and unconventional methods, effective antibiotics for MDR bacteria could be developed using nanomedicine techniques. To combat microbial resistance, a number of strategies have been developed, including the use of natural bactericides, the introduction of fresh antibiotics, the application of combination therapy and the creation of NP-based antibiotic nanocarriers. The absence of novel antibacterial agents has worsened the situation for MDR bacteria. Ineffective antibiotics used to treat MDR bacteria also contribute to the bacteria's tolerance growing. Nanoparticles (NPs) are the most efficient method for eliminating MDR bacteria because they serve as both carriers of natural antibiotics and antimicrobials and active agents against bacteria. Additionally, surface engineering of nanocarriers has important benefits for focusing on and modifying a variety of resistance mechanisms. The use of nanocarrier systems in drug delivery for overcoming bacterial resistance is covered in this review along with various mechanisms of antibiotic resistance.

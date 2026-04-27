@@ -1,0 +1,8 @@
+TITLE: The mirror neuron system.
+AUTHORS: Luigi Cattaneo, Giacomo Rizzolatti
+JOURNAL: Archives of neurology
+DATE: 2009 May
+PMID: 19433654
+
+ABSTRACT:
+Mirror neurons are a class of neurons, originally discovered in the premotor cortex of monkeys, that discharge both when individuals perform a given motor act and when they observe others perform that same motor act. Ample evidence demonstrates the existence of a cortical network with the properties of mirror neurons (mirror system) in humans. The human mirror system is involved in understanding others' actions and their intentions behind them, and it underlies mechanisms of observational learning. Herein, we will discuss the clinical implications of the mirror system.

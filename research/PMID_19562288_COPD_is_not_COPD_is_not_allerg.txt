@@ -1,0 +1,8 @@
+TITLE: COPD is not COPD is not allergy.
+AUTHORS: Stanislav Suskovic
+JOURNAL: Wiener klinische Wochenschrift
+DATE: 2009
+PMID: 19562288
+
+ABSTRACT:
+Chronic obstructive pulmonary disease (COPD) is still a poorly understood disease. Its pathogenesis is excitingly complex and has systemic consequences caused not only by increased production of certain cytokines but also by neurohumoral activation, chronic bacterial infection, muscle wasting and cachexia. Asthma and COPD have many overlapping clinical features so it should not be surprising that in the pathogenesis of COPD mediators such as leukotrienes, complement activation, atopic or even autoimmune processes are possibly involved. The pathogenesis of cardiovascular system involvement in COPD is also multifaceted and includes chronic heart hypoxia, damage by smoking and pulmonary hypertension; it must also be viewed as a consequence of systemic inflammation and neurohormonal activation. COPD is among the leading causes of morbidity and mortality worldwide and therefore it should be studied intensively beyond the lung itself. Treatments directed at neurohumoral activation in COPD have not been fully addressed; this aspect of COPD should be better understood, as it may direct novel therapeutic approaches.

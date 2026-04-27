@@ -1,0 +1,216 @@
+/* VoiceSettings.css - Biostack Aesthetic with Dark Mode Support */
+
+.voice-settings-panel {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 16px;
+  margin-top: 20px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.settings-header {
+  margin: 0 0 12px 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: color 0.3s ease;
+}
+
+.voice-controls-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.voice-selector {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 14px;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.voice-selector:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.btn-play-example {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-play-example:hover:not(:disabled) {
+  background-color: var(--bg-secondary);
+  border-color: var(--text-secondary);
+  color: var(--text-primary);
+}
+
+.btn-play-example:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--bg-secondary);
+}
+
+.btn-play-example:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+/* Translation Section Styles */
+.translation-section {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  gap: 8px;
+}
+
+.control-button {
+  flex: 1;
+  padding: 10px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+}
+
+.control-button.primary {
+  background-color: var(--accent-color, #2563eb);
+  color: #ffffff;
+  border: none;
+}
+
+.control-button.primary:hover {
+  background-color: var(--accent-hover, #1d4ed8);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.control-button.secondary:hover {
+  background-color: var(--bg-secondary);
+  border-color: var(--text-secondary);
+}
+
+/* Modal Dialog Styles */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+.modal-content {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  padding: 24px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-color);
+  animation: modal-appear 0.2s ease-out;
+}
+
+@keyframes modal-appear {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-title {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.field-group {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.field-group label {
+  font-size: 0.8125rem;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.field-group select {
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+
+.field-group select:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.btn-action {
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 13px;
+  border: none;
+  transition: all 0.2s;
+}
+
+.btn-action.apply {
+  background: var(--accent-color, #2563eb);
+  color: white;
+}
+
+.btn-action.apply:hover {
+  background: var(--accent-hover, #1d4ed8);
+}
+
+.btn-action.cancel {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.btn-action.cancel:hover {
+  background: var(--bg-secondary);
+}

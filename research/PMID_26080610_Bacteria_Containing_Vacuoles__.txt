@@ -1,0 +1,8 @@
+TITLE: Bacteria-Containing Vacuoles: Subversion of Cellular Membrane Traffic and Autophagy.
+AUTHORS: Bor Luen Tang
+JOURNAL: Critical reviews in eukaryotic gene expression
+DATE: 2015
+PMID: 26080610
+
+ABSTRACT:
+Intracellular bacterial pathogens drive the formation of host membrane-derived pseudo-organelles that facilitate their replication, survival, or dormancy. The formation and maintenance of these bacteria-containing vacuoles (BCVs) are dependent on the bacteria's ability to usurp the host's intracellular membrane system, in particular dynamic compartments involved in exo-/endocytic membrane traffic and autophagy. Bacteria are typically internalized by phagocytosis, and the compartment matures through endosomal fusion. The bacteria-containing phagosome/endosome often becomes the base for BCV formation. Diverse strategies used by different bacterial pathogens prevent the BCV from being destroyed via the endolysosomal pathway. Furthermore, bacterial survival or proliferation in BCVs could be augmented by host membrane transport processes subverted by secreted bacterial factors, which facilitate the acquisition of membrane sources and nutrients. BCVs may be targeted for destruction by autophagy, and various facultative and obligate intracellular bacteria have evolved ways to evade or even exploit autophagy. Here we review examples of bacterial subversion of host cellular membrane transport and autophagy machinery for a productive invasion.

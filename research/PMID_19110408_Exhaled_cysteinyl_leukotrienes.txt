@@ -1,0 +1,16 @@
+TITLE: Exhaled cysteinyl-leukotrienes and 8-isoprostane in patients with asthma and their relation to clinical severity.
+AUTHORS: Konstantinos Samitas, Dimitrios Chorianopoulos, Stelios Vittorakis, Eleftherios Zervas, Erasmia Economidou, George Papatheodorou, Stelios Loukides, Mina Gaga
+JOURNAL: Respiratory medicine
+DATE: 2009 May
+PMID: 19110408
+
+ABSTRACT:
+BACKGROUND: Collection of exhaled breath condensate (EBC) is a safe, non-invasive method to collect droplets of the airway surface liquid and measure mediators of airway inflammation and oxidative stress, such as cysteinyl-leukotrienes (cys-LTs) and 8-isoprostane.
+
+OBJECTIVE: The aim of our study was to investigate baseline values of inflammatory lipid mediators in EBC and their relation to asthma severity.
+
+METHODS: Nineteen healthy subjects, 16 mild, 12 moderate and 15 severe asthmatics were studied. All subjects attended a clinic visit for spirometry and EBC collection. The concentrations of exhaled cys-LTs and 8-isoprostane were measured by means of specific enzyme immunoassays.
+
+RESULTS: 8-isoprostane levels were significantly increased in mild (49.1+/-5.2 pg/mL, p<0.001), moderate (49.7+/-5.2 pg/mL, p<0.001) and severe asthmatics (77.7+/-7.3 pg/mL, p<0.001), compared to healthy controls (16.4+/-1.6 pg/mL). Moreover, 8-isoprostane levels were significantly higher in severe compared to mild and moderate asthmatics (p<0.01). Cys-LT levels were significantly higher in moderate (34.6+/-4.4 pg/mL, p<0.05) and severe asthmatics (47.9+/-6.0 pg/mL, p<0.001), while no significant difference was found between healthy controls and mild asthmatics. 8-isoprostane levels in EBC of asthmatics strongly correlated with cys-LT levels (r=0.61, p<0.0001).
+
+CONCLUSIONS: 8-isoprostane and cys-LT are detectable in EBC of healthy subjects and their levels progressively increase in asthmatic patients according to disease severity. The correlation found between these two lipid mediators indicating a link between oxidative stress and airway inflammation.
