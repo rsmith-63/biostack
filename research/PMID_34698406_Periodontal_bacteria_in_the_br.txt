@@ -1,8 +1,0 @@
-TITLE: Periodontal bacteria in the brain-Implication for Alzheimer's disease: A systematic review.
-AUTHORS: Valeria Parra-Torres, Samanta Melgar-Rodr&#xed;guez, Constanza Mu&#xf1;oz-Manr&#xed;quez, Benjam&#xed;n Sanhueza, Emilio A Cafferata, Andrea C Paula-Lima, Jaime D&#xed;az-Z&#xfa;&#xf1;iga
-JOURNAL: Oral diseases
-DATE: 2023 Jan
-PMID: 34698406
-
-ABSTRACT:
-Periodontitis is a chronic non-communicable disease caused by a dysbiotic microbiota. Pathogens can spread to the bloodstream, colonize other tissues or organs, and favor the onset of other pathologies, such as Alzheimer's disease (AD). Pathogens could permanently or transiently colonize the brain and induce an immune response. Thus, we analyzed the evidence combining oral bacteria's detection in the brain, both in animals and humans affected with AD. This systematic review was carried out following the PRISMA guideline. Studies that detected oral bacteria at the brain level were selected. The search was carried out in the Medline, Latindex, SciELO, and Cochrane Library databases. SYRCLE tool and Newcastle-Ottawa Scale were used for the risk of bias assessment. 23&#xa0;studies were selected according to the eligibility criteria. Infection with oral pathogens in animals was related to developing neuropathological characteristics of AD and bacteria detection in the brain. In patients with AD, oral bacteria were detected in brain tissues, and increased levels of pro-inflammatory cytokines were also detected. There is evidence of a microbiological susceptibility to develop AD when the most dysbiosis-associated oral bacteria are present. The presence of bacteria in the brain is related to AD's pathological characteristics, suggesting an etiological oral-brain axis.

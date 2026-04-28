@@ -1,8 +1,0 @@
-TITLE: Empathy for wildlife: The importance of the individual.
-AUTHORS: Pauline Smith, Janet Mann, Abigail Marsh
-JOURNAL: Ambio
-DATE: 2024 Sep
-PMID: 38795282
-
-ABSTRACT:
-Because climate change and the biodiversity crisis are driven by human actions, determining psychological mechanisms underpinning support for environmental action is an urgent priority. Here, we experimentally tested for mechanisms promoting conservation-related motivation and behavior toward a flagship species, wild Tamanend's bottlenose dolphins. Following evidence that empathy increases prosocial motivations and behavior, and that the ability to identify individual humans promotes empathy, we tested whether this relationship applied to the ability to identify individual dolphins. Participants identified dolphins from their dorsal fins at above chance levels, and better individuation correlated with higher empathy for dolphins and higher willingness to pledge environmental behaviors. Pairing a narrative with an image of an injured dolphin leads to higher donations relative to a narrative alone. Our novel finding that the ability to individually identify dolphins relates to empathy and conservation-related behavior suggests pathways for strengthening environmental attitudes and behavior.

@@ -1,8 +1,0 @@
-TITLE: Empathy for Distress in Humans and Rodents.
-AUTHORS: Jun Chen
-JOURNAL: Neuroscience bulletin
-DATE: 2018 Feb
-PMID: 28493169
-
-ABSTRACT:
-Empathy is traditionally thought to be a unique ability of humans to feel, understand, and share the emotional state of others. However, the notion has been greatly challenged by the emerging discoveries of empathy for pain or distress in rodents. Because empathy is believed to be fundamental to the formation of prosocial, altruistic, and even moral behaviors in social animals and humans, studies associated with decoding the neural circuits and unraveling the underlying molecular and neural mechanisms of empathy for pain or distress in rodents would be very important and encouraging. In this review, the author set out to outline and update the concept of empathy from the evolutionary point of view, and introduce up-to-date advances in the study of empathy and its neural correlates in both humans and rodents. Finally, the author highlights the perspectives and challenges for the further use of rodent models in the study of empathy for pain or distress.

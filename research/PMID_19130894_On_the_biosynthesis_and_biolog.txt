@@ -1,8 +1,0 @@
-TITLE: On the biosynthesis and biological role of eoxins and 15-lipoxygenase-1 in airway inflammation and Hodgkin lymphoma.
-AUTHORS: Hans-Erik Claesson
-JOURNAL: Prostaglandins & other lipid mediators
-DATE: 2009 Sep
-PMID: 19130894
-
-ABSTRACT:
-This mini-review is focused on the enzyme 15-lipoxygenase-1 (15-LO-1) and eoxins in airway inflammatory diseases and Hodgkin lymphoma. Several studies have demonstrated increased expression and activity of 15-LO-1 in the respiratory tissue from asthma patients , indicating a pathophysiological role of this enzyme in airway inflammation. Eoxins were recently identified as pro-inflammatory metabolites of arachidonic acid, formed through the 15-LO-1 pathway, in human eosinophils, mast cells, airway epithelial cells and Hodgkin lymphoma. Mice deficient of 12/15-LO, the ortholog to human 15-LO-1, had an attenuated allergic airway inflammation compared to wild type controls, also indicating a pathophysiological role of this enzyme in respiratory inflammation. The putative therapeutic implications of 15-LO-1 inhibitors in the treatment of asthma, chronic obstructive pulmonary disorder and Hodgkin lymphoma are discussed.

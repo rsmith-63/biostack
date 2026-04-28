@@ -1,8 +1,0 @@
-TITLE: Empathy is not in our genes.
-AUTHORS: Cecilia Heyes
-JOURNAL: Neuroscience and biobehavioral reviews
-DATE: 2018 Dec
-PMID: 30399356
-
-ABSTRACT:
-In academic and public life empathy is seen as a fundamental force of morality - a psychological phenomenon, rooted in biology, with profound effects in law, policy, and international relations. But the roots of empathy are not as firm as we like to think. The matching mechanism that distinguishes empathy from compassion, envy, schadenfreude, and sadism is a product of learning. Here I present a dual system model that distinguishes Empathy, an automatic process that catches the feelings of others, from Empathy, controlled processes that interpret those feelings. Research with animals, infants, adults and robots suggests that the mechanism of Empathy, emotional contagion, is constructed in the course of development through social interaction. Learned Matching implies that empathy is both agile and fragile. It can be enhanced and redirected by novel experience, and broken by social change.

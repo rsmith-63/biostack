@@ -1,8 +1,0 @@
-TITLE: Cortical regulation of helping behaviour towards others in pain.
-AUTHORS: Mingmin Zhang, Ye Emily Wu, Mengping Jiang, Weizhe Hong
-JOURNAL: Nature
-DATE: 2024 Feb
-PMID: 38267578
-
-ABSTRACT:
-Humans and animals exhibit various forms of prosocial helping behaviour towards others in need. Although previous research has investigated how individuals may perceive others' states, the neural mechanisms of how they respond to others' needs and goals with helping behaviour remain largely unknown. Here we show that mice engage in a form of helping behaviour towards other individuals experiencing physical pain and injury-they exhibit allolicking (social licking) behaviour specifically towards the injury site, which aids the recipients in coping with pain. Using microendoscopic imaging, we found that single-neuron and ensemble activity in the anterior cingulate cortex (ACC) encodes others' state of pain and that this representation is different from that of general stress in others. Furthermore, functional manipulations demonstrate a causal role of the ACC in bidirectionally controlling targeted allolicking. Notably,&#xa0;this behaviour is represented in a population code in the ACC that differs from that of general allogrooming, a distinct type of prosocial behaviour elicited by others' emotional stress. These findings advance our understanding of the neural coding and regulation of helping behaviour.

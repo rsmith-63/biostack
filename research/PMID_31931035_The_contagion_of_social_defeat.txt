@@ -1,8 +1,0 @@
-TITLE: The contagion of social defeat stress: Insights from rodent studies.
-AUTHORS: Luca Carnevali, Nicola Montano, Eleonora Tobaldini, Julian F Thayer, Andrea Sgoifo
-JOURNAL: Neuroscience and biobehavioral reviews
-DATE: 2020 Apr
-PMID: 31931035
-
-ABSTRACT:
-Stressful experiences can be transmitted among individuals through social interactions. Like humans, rodents are social creatures whose behavior and physiology can be influenced by the emotional state of fellow rodents. This paper will review rodent studies which have explored two conditions of potential social stress contagion using the social defeat paradigm. In the vicarious social defeat model, mice and rats that witness a conspecific being socially defeated exhibit physiological stress responses and develop a host of depressive- and anxiety-like behavioral deficits. Likewise, social interaction with a stressed partner in the aftermath of social defeat stress results in physiological stress responses and social avoidance behavior. After summarizing the existing literature on this newly emerging area of social defeat stress contagion in rodents, we will discuss the potential utility of these rodent models for investigating the neurobiological processes and sensory channels of information that allow for the spread of psychophysiological effects of stress across individuals.

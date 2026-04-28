@@ -1,8 +1,0 @@
-TITLE: Rodent models for studying empathy.
-AUTHORS: Sehoon Keum, Hee-Sup Shin
-JOURNAL: Neurobiology of learning and memory
-DATE: 2016 Nov
-PMID: 27475995
-
-ABSTRACT:
-Empathy is the important capacity to recognize and share emotions with others. Recent evidence shows that rodents possess a remarkable affective sensitivity to the emotional state of others and that primitive forms of empathy exist in social lives of rodents. However, due to the ambiguous definitional boundaries between empathy, emotional contagion and other related terms, distinct components of empathic behaviors in rodents need to be clarified. Hence, we review recent experimental studies demonstrating that rodents are able to share emotions with others. Specifically, we highlight several behavioral models that examine different aspects of rodent empathic behaviors in response to the various distress of conspecifics. Experimental approaches using rodent behavioral models will help elucidate the neural circuitry of empathy and its neurochemical association. Integrating these findings with corresponding experiments in humans will ultimately provide novel insights into therapeutic interventions for mental disorders associated with empathy.

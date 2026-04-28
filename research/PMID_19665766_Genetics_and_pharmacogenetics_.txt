@@ -1,8 +1,0 @@
-TITLE: Genetics and pharmacogenetics of the leukotriene pathway.
-AUTHORS: Kelan G Tantisira, Jeffrey M Drazen
-JOURNAL: The Journal of allergy and clinical immunology
-DATE: 2009 Sep
-PMID: 19665766
-
-ABSTRACT:
-Leukotrienes are now established contributors to the inflammatory process in asthma, and leukotriene modifiers are mainstays in the therapy of asthma. This review focuses on published association studies implicating the role of leukotriene pathway genes in asthma pathogenesis and treatment response, specifically focusing on those genetic variants associated with asthma affection status, the development of aspirin-exacerbated respiratory disease, and pharmacogenetic response. Although published studies have been limited by small sample sizes and a lack of independent replication, multiple loci within multiple leukotriene pathway genes have now been associated in more than 1 study related to asthma or asthma treatment response. Those specific variants include 2 variants in the 5-lipoxygenase gene (ALOX5) that are both associated with response to 5-lipoxygenase inhibition and to leukotriene receptor antagonists, variants in genes encoding the 2 established cysteinyl leukotriene receptor antagonists (CYSLTR1 and CYSLTR2) that are both associated with asthma susceptibility in at least 2 independent populations, and a leukotriene C(4) synthase promoter polymorphism (LTC4s) that has been associated with asthma affection status and asthma-exacerbated respiratory disease. Despite these successes, genetic investigations into this pathway remain in their formative stages. Future studies aimed at providing a broader scope of investigation through increased sample sizes and through genome-wide approaches are needed.

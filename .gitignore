@@ -5,3 +5,6 @@ playwright-report
 test-results
 dist
 build
+
+# Research data
+research/

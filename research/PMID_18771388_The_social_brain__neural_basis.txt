@@ -1,8 +1,0 @@
-TITLE: The social brain: neural basis of social knowledge.
-AUTHORS: Ralph Adolphs
-JOURNAL: Annual review of psychology
-DATE: 2009
-PMID: 18771388
-
-ABSTRACT:
-Social cognition in humans is distinguished by psychological processes that allow us to make inferences about what is going on inside other people-their intentions, feelings, and thoughts. Some of these processes likely account for aspects of human social behavior that are unique, such as our culture and civilization. Most schemes divide social information processing into those processes that are relatively automatic and driven by the stimuli, versus those that are more deliberative and controlled, and sensitive to context and strategy. These distinctions are reflected in the neural structures that underlie social cognition, where there is a recent wealth of data primarily from functional neuroimaging. Here I provide a broad survey of the key abilities, processes, and ways in which to relate these to data from cognitive neuroscience.

@@ -1,8 +1,0 @@
-TITLE: Neural basis of prosocial behavior.
-AUTHORS: Ye Emily Wu, Weizhe Hong
-JOURNAL: Trends in neurosciences
-DATE: 2022 Oct
-PMID: 35853793
-
-ABSTRACT:
-The ability to behave in ways that benefit other individuals' well-being is among the most celebrated human characteristics crucial for social cohesiveness. Across mammalian species, animals display various forms of prosocial behaviors - comforting, helping, and resource sharing - to support others' emotions, goals, and/or material needs. In this review, we provide a cross-species view of the behavioral manifestations, proximate and ultimate drives, and neural mechanisms of prosocial behaviors. We summarize key findings from recent studies in humans and rodents that have shed light on the neural mechanisms underlying different processes essential for prosocial interactions, from perception and empathic sharing of others' states to prosocial decisions and actions.

@@ -1,8 +1,0 @@
-TITLE: Anterior cingulate inputs to nucleus accumbens control the social transfer of pain and analgesia.
-AUTHORS: Monique L Smith, Naoyuki Asada, Robert C Malenka
-JOURNAL: Science (New York, N.Y.)
-DATE: 2021 Jan
-PMID: 33414216
-
-ABSTRACT:
-Empathy is an essential component of social communication that involves experiencing others' sensory and emotional states. We observed that a brief social interaction with a mouse experiencing pain or morphine analgesia resulted in the transfer of these experiences to its social partner. Optogenetic manipulations demonstrated that the anterior cingulate cortex (ACC) and its projections to the nucleus accumbens (NAc) were selectively involved in the social transfer of both pain and analgesia. By contrast, the ACC&#x2192;NAc circuit was not necessary for the social transfer of fear, which instead depended on ACC projections to the basolateral amygdala. These findings reveal that the ACC, a brain area strongly implicated in human empathic responses, mediates distinct forms of empathy in mice by influencing different downstream targets.

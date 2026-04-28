@@ -1,8 +1,0 @@
-TITLE: Compassion Fatigue: Understanding Empathy.
-AUTHORS: Kelly Harrison
-JOURNAL: The Veterinary clinics of North America. Small animal practice
-DATE: 2021 Sep
-PMID: 34218949
-
-ABSTRACT:
-In clinical medicine, empathy is considered a central feature of holistic caretaking and successful patient interaction. It is unclear whether characteristics of empathy are innate, learned, or a combination of both. The means to evaluate clinical empathy are ill-defined, but perception of empathy has been shown to influence patient outcomes as well as professional well-being. This article reviews what is known about empathy in a medical setting and how it relates to negative mental health outcomes, such as compassion fatigue.
