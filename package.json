@@ -19,6 +19,11 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.28.0",
+    "@ncbijs/blast": "file:../ncbijs/packages/blast",
+    "@ncbijs/datasets": "file:../ncbijs/packages/datasets",
+    "@ncbijs/fasta": "file:../ncbijs/packages/fasta",
+    "@ncbijs/http-mcp": "file:../ncbijs/packages/http-mcp",
+    "@ncbijs/rate-limiter": "file:../ncbijs/packages/rate-limiter",
     "dotenv": "^16.4.5",
     "koa": "^2.15.3",
     "koa-bodyparser": "^4.4.1",
@@ -27,6 +32,8 @@
     "koa-static": "^5.0.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
+    "stream-json": "^2.1.0",
+    "unzipper": "^0.12.3",
     "zod": "^4.3.6"
   },
   "devDependencies": {
