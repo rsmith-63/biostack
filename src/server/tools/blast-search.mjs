@@ -66,6 +66,7 @@ const executeBlast = async () => {
     const results = await blastClient.search(cleanSequence, program, database, {
       pollIntervalMs: 1000,
       maxPollAttempts: 30,
+      saveResults: true,
     });
 
     console.log("\n✅ BLAST Results Received:");

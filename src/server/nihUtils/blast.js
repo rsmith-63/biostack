@@ -1,6 +1,7 @@
 import { TokenBucket, HttpRetryError, fetchWithRetry } from '@ncbijs/rate-limiter';
 import { parsePollResponse, parseSubmitResponse } from './parse-qblast-info.js';
 import { fetchAndUnzipBlast } from '../utils/unzipfle.mjs';
+import { saveBlastResults } from '../utils/save-blast-results.mjs';
 
 const BLAST_BASE_URL = 'https://blast.ncbi.nlm.nih.gov/blast/Blast.cgi';
 const DEFAULT_MAX_RETRIES = 3;
@@ -140,11 +141,16 @@ export const createBlastClient = (config = {}) => {
   };
 
   /** Retrieve the results of a completed BLAST search by request ID. */
-  const retrieve = async (rid) => {
+  const retrieve = async (rid, program, database, options = {}) => {
     const url = `${BLAST_BASE_URL}?CMD=Get&RID=${encodeURIComponent(rid)}&FORMAT_TYPE=JSON2`;
     
     try {
       const blastJsonData = await fetchAndUnzipBlast(url);
+      
+      if (options.saveResults && program && database) {
+        await saveBlastResults(blastJsonData, program, database);
+      }
+      
       return mapBlastResult(blastJsonData);
     } catch (error) {
       console.error(`Failed to retrieve and process BLAST RID: ${rid}`, error);
@@ -162,7 +168,7 @@ export const createBlastClient = (config = {}) => {
       await delay(pollIntervalMs);
       const pollResult = await poll(submitResult.rid);
 
-      if (pollResult.status === 'ready') return retrieve(submitResult.rid);
+      if (pollResult.status === 'ready') return retrieve(submitResult.rid, program, database, options);
       
       if (pollResult.status === 'failed' || pollResult.status === 'unknown') {
         throw new BlastSearchError(submitResult.rid);
