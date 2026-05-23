@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Tooltip from './Tooltip';
 import AbstractView from './AbstractView';
 import { getActiveLanguage } from '../utils/languageDetection';
@@ -15,35 +15,32 @@ export default function CitationCard({ article }) {
 
   const targetLanguage = getActiveLanguage();
   const pubmedUrl = pmid ? `https://pubmed.ncbi.nlm.nih.gov/${pmid}/` : '#';
+  
+  const [saving, setSaving] = useState(false);
+  const [saveMessage, setSaveMessage] = useState(null);
 
-  // Function to handle the local "Save" action
-  const handleSave = () => {
-    const formattedAuthors = Array.isArray(authors) ? authors.join(', ') : (authors || 'N/A');
-    const fileContent = `
-TITLE: ${title || 'Untitled'}
-AUTHORS: ${formattedAuthors}
-JOURNAL: ${journal || 'N/A'}
-DATE: ${pubDate || 'N/A'}
-PMID: ${pmid || 'N/A'}
-URL: ${pubmedUrl}
+  // Function to handle the server-side "Save" action
+  const handleSave = async () => {
+    setSaving(true);
+    setSaveMessage(null);
+    try {
+      const response = await fetch('/api/pubmed/bulk-save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ articles: [article] })
+      });
 
-ABSTRACT:
-${abstract || 'No abstract available.'}
-    `.trim();
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || 'Error saving article');
 
-    const blob = new Blob([fileContent], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    
-    // Format filename: PMID_Title_Snippet.txt
-    const safeTitle = (title || 'article').substring(0, 30).replace(/[^a-z0-9]/gi, '_');
-    link.href = url;
-    link.download = `PMID_${pmid || 'unknown'}_${safeTitle}.txt`;
-    
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+      setSaveMessage('Saved to Research Folder!');
+      setTimeout(() => setSaveMessage(null), 3000);
+    } catch (err) {
+      console.error('Save error:', err);
+      alert('Failed to save: ' + err.message);
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
@@ -65,15 +62,22 @@ ${abstract || 'No abstract available.'}
       </p>
 
       <div className="action-row">
-        <button onClick={handleSave} className="btn-save notranslate">
-          <span>💾 Save to Research Folder</span>
-        </button>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <button onClick={handleSave} disabled={saving} className="btn-save notranslate">
+            <span>{saving ? '⏳ Saving...' : '💾 Save to Research Folder'}</span>
+          </button>
+          {saveMessage && <span className="success-text" style={{ fontSize: '0.8rem' }}>{saveMessage}</span>}
+        </div>
         
         {abstract && (
           <details>
             <summary className="notranslate">View Abstract</summary>
             <div className="abstract-container">
-              <AbstractView title={title} text={abstract} />
+              <AbstractView 
+                article={article} 
+                onSave={handleSave}
+                saving={saving}
+              />
             </div>
           </details>
         )}

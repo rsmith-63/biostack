@@ -7,9 +7,10 @@ import { getActiveLanguage } from '../utils/languageDetection';
  * It integrates with the language detection utility to automatically 
  * match the system voice with the dashboard's current translation.
  */
-const AbstractView = ({ title, text }) => {
+const AbstractView = ({ article, onSave, saving }) => {
   // Use 'text' as the prop for the abstract content to match CitationCard's current usage
-  const abstractText = text;
+  const abstractText = article?.abstract || 'No abstract available.';
+  const title = article?.title || 'Untitled';
   const contentRef = useRef(null);
 
   // 1. Get the current active language from the Google Translate cookie
@@ -36,6 +37,17 @@ const AbstractView = ({ title, text }) => {
           </h2>
         )}
         <div className="speech-controls">
+          {onSave && (
+            <button 
+              className="speech-btn save" 
+              onClick={onSave}
+              disabled={saving}
+              aria-label="Save to Research Folder"
+              title="Save to Research Folder"
+            >
+              <span className="icon">💾</span> <span>{saving ? 'Saving...' : 'Save'}</span>
+            </button>
+          )}
           {!isSpeaking ? (
             <button 
               className="speech-btn play" 
@@ -90,6 +102,8 @@ const AbstractView = ({ title, text }) => {
 
         .speech-controls {
           flex-shrink: 0;
+          display: flex;
+          gap: 8px;
         }
 
         .speech-btn {
@@ -108,6 +122,11 @@ const AbstractView = ({ title, text }) => {
 
         .speech-btn.play {
           background-color: #2563eb;
+          color: white;
+        }
+
+        .speech-btn.save {
+          background-color: #059669;
           color: white;
         }
 

@@ -12,6 +12,17 @@
             "NCBI_API_KEY":"a23948f1d3889959fadfa5c5c4700a009e08"
         },
         "console": "integratedTerminal"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Run E-Link Search Tool",
+      "program": "${workspaceFolder}/src/server/tools/e-link-search.mjs",
+      "args": [
+        "34549977"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
     }
 ]
 }
