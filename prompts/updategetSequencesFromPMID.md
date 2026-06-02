@@ -1,14 +1,17 @@
+# File: src/server/nihUtils/getSequencesFromPMID.js
+
+```javascript
 import { resolvePdbFromProteins } from './resolvePdbFromProteins.js';
 
 /**
  * Fetches sequence IDs (Nucleotide) or resolved PDB structural codes (Protein) linked to a specific PMID.
- * @param {string|number} pmid - The PubMed ID.
+ * * @param {string|number} pmid - The PubMed ID.
  * @param {string} targetDb - The target database: 'nuccore' (default) or 'protein'.
  * @returns {Promise<Array<string>>} - An array of nucleotide sequence IDs or resolved 4-letter PDB codes.
  */
 export async function getSequencesFromPMID(pmid, targetDb = 'nuccore') {
   // We request JSON format to make parsing easier than NCBI's default XML
-  const baseUrl = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi';
+  const baseUrl = '[https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi](https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi)';
   const url = `${baseUrl}?dbfrom=pubmed&db=${targetDb}&id=${pmid}&retmode=json`;
 
   try {
@@ -52,3 +55,4 @@ export async function getSequencesFromPMID(pmid, targetDb = 'nuccore') {
 // 2. Fetching Protein and automatically resolving down to ready-to-render PDB codes:
 // const pdbCodes = await getSequencesFromPMID('12345678', 'protein');
 // console.log(pdbCodes); // Output: ['6z1w', '7k39']
+```

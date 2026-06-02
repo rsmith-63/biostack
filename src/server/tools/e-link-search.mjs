@@ -31,13 +31,20 @@ async function main() {
   for (const db of dbInfo.blastDbs) {
     console.log(`   -> Fetching from '${db}'...`);
     // Use the DB found in step 1 as the target for step 2
-    const sequenceIds = await getSequencesFromPMID(pmid, db);
-    results[db] = sequenceIds;
-    console.log(`      Found ${sequenceIds.length} sequence IDs in ${db}.`);
+    // Note: getSequencesFromPMID automatically resolves protein UIDs to PDB codes
+    const ids = await getSequencesFromPMID(pmid, db);
+    
+    if (db === 'protein') {
+      results.pdb = ids;
+      console.log(`      Found ${ids.length} resolved PDB structural codes.`);
+    } else {
+      results[db] = ids;
+      console.log(`      Found ${ids.length} sequence IDs in ${db}.`);
+    }
   }
 
-  // 3. Output final data structure ready for BLAST
-  console.log('\n--- Final Sequence IDs Ready for BLAST ---');
+  // 3. Output final data structure
+  console.log('\n--- Final Data Structure ---');
   console.log(JSON.stringify(results, null, 2));
 }
 
