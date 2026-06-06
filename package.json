@@ -30,6 +30,7 @@
     "koa-mount": "^4.0.0",
     "koa-router": "^13.0.1",
     "koa-static": "^5.0.0",
+    "molstar": "^5.9.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "stream-json": "^2.1.0",

@@ -1,6 +1,7 @@
 // src/server/tools/e-link-search.mjs
 import { checkDatabasesForPMID } from '../nihUtils/checkDatabasesForPMID.js';
-import { getSequencesFromPMID } from '../nihUtils/getSequencesFromPMID.js';
+import { getSequencesFromPMID, mapPmidToUniprot } from '../nihUtils/getSequencesFromPMID.js';
+import { resolveStructureUrl } from '../../client/utils/structureResolver.js';
 
 // ==========================================
 // Main Execution Logic
@@ -32,11 +33,39 @@ async function main() {
     console.log(`   -> Fetching from '${db}'...`);
     // Use the DB found in step 1 as the target for step 2
     // Note: getSequencesFromPMID automatically resolves protein UIDs to PDB codes
-    const ids = await getSequencesFromPMID(pmid, db);
+    let ids = await getSequencesFromPMID(pmid, db);
     
     if (db === 'protein') {
-      results.pdb = ids;
-      console.log(`      Found ${ids.length} resolved PDB structural codes.`);
+      if (Array.isArray(ids) && ids.length > 0) {
+        results.pdb = ids;
+        console.log(`      Found ${ids.length} resolved PDB structural codes.`);
+      } else {
+        // Fallback: If no direct links, try UniProt mapping + structureResolver
+        let uniprotId = (ids && typeof ids === 'object') ? ids.uniprot_id : null;
+        
+        if (!uniprotId) {
+          console.log(`      No direct structure links. Attempting UniProt mapping for ${pmid}...`);
+          uniprotId = await mapPmidToUniprot(pmid);
+        }
+
+        if (uniprotId) {
+          console.log(`      Enhancing resolution for UniProt ID: ${uniprotId}...`);
+          const enhanced = await resolveStructureUrl(uniprotId);
+          if (enhanced) {
+            results.structure = {
+              uniprot_id: uniprotId,
+              ...enhanced
+            };
+            console.log(`      Successfully resolved ${enhanced.source} structure.`);
+          } else {
+            results.structure = (ids && typeof ids === 'object' && ids.source) ? ids : { uniprot_id: uniprotId };
+            console.log(`      Using basic UniProt link for ${uniprotId}.`);
+          }
+        } else {
+          results.pdb = [];
+          console.log(`      No structural data found for protein links.`);
+        }
+      }
     } else {
       results[db] = ids;
       console.log(`      Found ${ids.length} sequence IDs in ${db}.`);

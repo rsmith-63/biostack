@@ -1,5 +1,6 @@
 import React, { use, Suspense } from 'react';
 import PubmedSearch from './PubmedSearch';
+import MolstarViewer from './components/MolstarViewer';
 import VoiceSettings from './components/VoiceSettings';
 import { useDarkMode } from './hooks/useDarkMode';
 
@@ -44,6 +45,7 @@ function App() {
       <main style={{ display: 'flex', gap: '20px' }}>
         <div style={{ flex: 1 }}>
           <PubmedSearch />
+          <MolstarViewer />
         </div>
         <aside style={{ width: '300px' }}>
           <VoiceSettings />
