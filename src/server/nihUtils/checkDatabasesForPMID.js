@@ -1,3 +1,5 @@
+import { robustNcbiFetch } from '../utils/ncbiFetcher.js';
+
 /**
  * Checks all NCBI databases linked to a PMID and identifies those suitable for BLAST.
  * 
@@ -13,13 +15,7 @@ export async function checkDatabasesForPMID(pmid) {
   const url = `${baseUrl}?dbfrom=pubmed&id=${pmid}&cmd=acheck&retmode=json`;
 
   try {
-    const response = await fetch(url);
-    
-    if (!response.ok) {
-      throw new Error(`NCBI API error: ${response.status} ${response.statusText}`);
-    }
-
-    const data = await response.json();
+    const data = await robustNcbiFetch(url);
     
     const linkSets = data.linksets || [];
     // If there are no linksets, there are no linked databases
@@ -59,22 +55,3 @@ export async function checkDatabasesForPMID(pmid) {
     return { pmid, allLinkedDbs: [], blastDbs: [] };
   }
 }
-
-// ==========================================
-// Example Usage in your Koa application:
-// ==========================================
-/*
-async function handlePubmedCheck(ctx) {
-  const pmid = ctx.params.id; // e.g., '30000000'
-  
-  const dbInfo = await checkDatabasesForPMID(pmid);
-  
-  console.log("All linked databases:", dbInfo.allLinkedDbs);
-  // Might log: ['pmc', 'taxonomy', 'nuccore', 'protein', 'medgen']
-  
-  console.log("Databases ready for BLAST:", dbInfo.blastDbs);
-  // Would log: ['nuccore', 'protein']
-  
-  ctx.body = dbInfo;
-}
-*/

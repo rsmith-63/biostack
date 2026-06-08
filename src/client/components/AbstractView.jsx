@@ -17,18 +17,27 @@ const AbstractView = ({ article, onSave, saving }) => {
   const [hasStructure, setHasStructure] = useState(false);
   const [structureData, setStructureData] = useState(null);
 
-  // 1. Check for structural data availability
+  // 1. Check for structural data availability ONLY when needed
+  // We can use the 'open' state of the parent <details> or just trigger it on mount
+  // Since AbstractView is inside <details>, it mounts when the user first expands it?
+  // Actually, in CitationCard it's always in the JSX.
+  // Let's use an Intersection Observer or just a "load" trigger.
+  // For now, let's just add a small random delay to stagger the initial burst
   useEffect(() => {
     if (pubmedId) {
-      fetch(`/api/structure/${pubmedId}`)
-        .then(res => res.json())
-        .then(result => {
-          if (result.data) {
-            setHasStructure(true);
-            setStructureData(result.data);
-          }
-        })
-        .catch(() => setHasStructure(false));
+      const staggeredDelay = Math.random() * 2000; // 0-2 seconds delay
+      const timer = setTimeout(() => {
+        fetch(`/api/structure/${pubmedId}`)
+          .then(res => res.json())
+          .then(result => {
+            if (result.data) {
+              setHasStructure(true);
+              setStructureData(result.data);
+            }
+          })
+          .catch(() => setHasStructure(false));
+      }, staggeredDelay);
+      return () => clearTimeout(timer);
     }
   }, [pubmedId]);
 

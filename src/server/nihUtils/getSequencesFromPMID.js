@@ -1,4 +1,5 @@
 import { resolvePdbFromProteins } from './resolvePdbFromProteins.js';
+import { robustNcbiFetch } from '../utils/ncbiFetcher.js';
 
 /**
  * Maps a PubMed ID to a UniProt Accession using the UniProt REST API.
@@ -77,14 +78,7 @@ export async function getSequencesFromPMID(pmid, targetDb = 'nuccore') {
     const url = `${baseUrl}?dbfrom=pubmed&db=nuccore&id=${pmid}&retmode=json`;
 
     try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`NCBI API error: ${response.status} ${response.statusText}`);
-      }
-      const text = await response.text();
-      // Sanitize control characters that break JSON.parse (U+0000 to U+001F)
-      const cleanText = text.replace(/[\x00-\x1F]+/g, " ");
-      const data = JSON.parse(cleanText);
+      const data = await robustNcbiFetch(url);
       const linkSets = data.linksets || [];
       if (linkSets.length === 0 || !linkSets[0].linksetdbs) {
         return [];
@@ -105,15 +99,10 @@ export async function getSequencesFromPMID(pmid, targetDb = 'nuccore') {
     
     let linkedIds = [];
     try {
-      const response = await fetch(url);
-      if (response.ok) {
-        const text = await response.text();
-        const cleanText = text.replace(/[\x00-\x1F]+/g, " ");
-        const data = JSON.parse(cleanText);
-        const linkSets = data.linksets || [];
-        if (linkSets.length > 0 && linkSets[0].linksetdbs) {
-          linkedIds = linkSets[0].linksetdbs[0].links || [];
-        }
+      const data = await robustNcbiFetch(url);
+      const linkSets = data.linksets || [];
+      if (linkSets.length > 0 && linkSets[0].linksetdbs) {
+        linkedIds = linkSets[0].linksetdbs[0].links || [];
       }
     } catch (error) {
       console.error(`NCBI link fetch failed for protein: ${error.message}`);
@@ -143,13 +132,3 @@ export async function getSequencesFromPMID(pmid, targetDb = 'nuccore') {
 
   return [];
 }
-
-// Example usage within your Koa routing logic:
-//
-// 1. Fetching Nucleotide UIDs:
-// const nucleotideIds = await getSequencesFromPMID('12345678', 'nuccore');
-// console.log(nucleotideIds); // Output: ['1524312', '1524313']
-//
-// 2. Fetching Protein and automatically resolving down to ready-to-render PDB codes:
-// const pdbCodes = await getSequencesFromPMID('12345678', 'protein');
-// console.log(pdbCodes); // Output: ['6z1w', '7k39']
