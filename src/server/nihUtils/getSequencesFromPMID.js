@@ -81,7 +81,10 @@ export async function getSequencesFromPMID(pmid, targetDb = 'nuccore') {
       if (!response.ok) {
         throw new Error(`NCBI API error: ${response.status} ${response.statusText}`);
       }
-      const data = await response.json();
+      const text = await response.text();
+      // Sanitize control characters that break JSON.parse (U+0000 to U+001F)
+      const cleanText = text.replace(/[\x00-\x1F]+/g, " ");
+      const data = JSON.parse(cleanText);
       const linkSets = data.linksets || [];
       if (linkSets.length === 0 || !linkSets[0].linksetdbs) {
         return [];
@@ -104,7 +107,9 @@ export async function getSequencesFromPMID(pmid, targetDb = 'nuccore') {
     try {
       const response = await fetch(url);
       if (response.ok) {
-        const data = await response.json();
+        const text = await response.text();
+        const cleanText = text.replace(/[\x00-\x1F]+/g, " ");
+        const data = JSON.parse(cleanText);
         const linkSets = data.linksets || [];
         if (linkSets.length > 0 && linkSets[0].linksetdbs) {
           linkedIds = linkSets[0].linksetdbs[0].links || [];

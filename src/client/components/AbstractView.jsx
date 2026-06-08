@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useNativeSpeech } from '../hooks/useNativeSpeech';
 import { getActiveLanguage } from '../utils/languageDetection'; 
 
@@ -6,26 +6,49 @@ import { getActiveLanguage } from '../utils/languageDetection';
  * AbstractView provides a UI for reading scientific abstracts.
  * It integrates with the language detection utility to automatically 
  * match the system voice with the dashboard's current translation.
+ * Now includes a conditional 3D Viewer launch button.
  */
 const AbstractView = ({ article, onSave, saving }) => {
   // Use 'text' as the prop for the abstract content to match CitationCard's current usage
   const abstractText = article?.abstract || 'No abstract available.';
   const title = article?.title || 'Untitled';
+  const pubmedId = article?.pmid;
   const contentRef = useRef(null);
+  const [hasStructure, setHasStructure] = useState(false);
+  const [structureData, setStructureData] = useState(null);
 
-  // 1. Get the current active language from the Google Translate cookie
+  // 1. Check for structural data availability
+  useEffect(() => {
+    if (pubmedId) {
+      fetch(`/api/structure/${pubmedId}`)
+        .then(res => res.json())
+        .then(result => {
+          if (result.data) {
+            setHasStructure(true);
+            setStructureData(result.data);
+          }
+        })
+        .catch(() => setHasStructure(false));
+    }
+  }, [pubmedId]);
+
+  // 2. Get the current active language from the Google Translate cookie
   const targetLanguage = getActiveLanguage();
   
-  // 2. Use the global speech hook with the target language code.
-  // This ensures the voice matches the dashboard's current translation.
+  // 3. Use the global speech hook with the target language code.
   const { speak, stop, isSpeaking } = useNativeSpeech(targetLanguage);
 
   const handleSpeak = () => {
-    // CAPTURE TRANSLATED TEXT:
-    // If Google Translate is active, 'abstractText' (the React prop) remains English.
-    // We read from the DOM via contentRef to get the actual translated text the user sees.
     const textToRead = contentRef.current ? contentRef.current.innerText : abstractText;
     speak(textToRead);
+  };
+
+  const handleLaunchViewer = () => {
+    // Optimization: Pass the already-fetched data to the new tab via sessionStorage
+    if (structureData) {
+      sessionStorage.setItem(`structure_${pubmedId}`, JSON.stringify(structureData));
+    }
+    window.open(`/viewer/${pubmedId}`, '_blank');
   };
 
   return (
@@ -37,6 +60,16 @@ const AbstractView = ({ article, onSave, saving }) => {
           </h2>
         )}
         <div className="speech-controls">
+          {hasStructure && (
+            <button 
+              className="speech-btn viewer"
+              onClick={handleLaunchViewer}
+              aria-label="Launch 3D Viewer"
+              title="Launch 3D Viewer"
+            >
+              <span className="icon">🧬</span> <span>3D Viewer</span>
+            </button>
+          )}
           {onSave && (
             <button 
               className="speech-btn save" 
@@ -118,6 +151,11 @@ const AbstractView = ({ article, onSave, saving }) => {
           border: none;
           transition: opacity 0.2s;
           white-space: nowrap;
+        }
+
+        .speech-btn.viewer {
+          background-color: #7c3aed;
+          color: white;
         }
 
         .speech-btn.play {

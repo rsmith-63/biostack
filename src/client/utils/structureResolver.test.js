@@ -6,6 +6,17 @@ describe('structureResolver', () => {
     vi.stubGlobal('fetch', vi.fn());
   });
 
+  it('should resolve PDB ID directly via RCSB', async () => {
+    const result = await resolveStructureUrl('1ABC');
+    expect(result).toEqual({
+      url: 'https://files.rcsb.org/download/1ABC.cif',
+      format: 'mmcif',
+      source: 'RCSB PDB'
+    });
+    // Should NOT have called fetch because it returns immediately for 4-char IDs
+    expect(fetch).not.toHaveBeenCalled();
+  });
+
   it('should resolve AlphaFold structure if available', async () => {
     fetch.mockResolvedValueOnce({
       ok: true,

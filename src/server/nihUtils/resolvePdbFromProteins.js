@@ -43,8 +43,11 @@ export async function resolvePdbFromProteins(proteinUids) {
         continue;
       }
 
-      const linkData = await linkRes.json();
-      
+      const linkText = await linkRes.text();
+      // Sanitize control characters (U+0000 to U+001F) that break JSON.parse
+      const cleanLinkText = linkText.replace(/[\x00-\x1F]+/g, " ");
+      const linkData = JSON.parse(cleanLinkText);
+
       const pdbUids = [];
       linkData.linksets?.forEach(linkset => {
         const pdbLink = linkset.linksetdbs?.find(db => db.dbto === 'pdb');
@@ -72,7 +75,9 @@ export async function resolvePdbFromProteins(proteinUids) {
         continue;
       }
 
-      const summaryData = await summaryRes.json();
+      const summaryText = await summaryRes.text();
+      const cleanSummaryText = summaryText.replace(/[\x00-\x1F]+/g, " ");
+      const summaryData = JSON.parse(cleanSummaryText);
       
       // Extract and format the accessions
       pdbUids.forEach(uid => {

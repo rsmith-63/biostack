@@ -11,6 +11,8 @@ import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
 import { z } from 'zod';
 
+import { runLinkSearch } from './tools/e-link-search.mjs';
+
 // Load environment variables
 config({ path: './.env' });
 
@@ -89,6 +91,37 @@ connectMCP();
 // API Health Check Route
 router.get('/api/health', async (ctx) => {
   ctx.body = { status: 'healthy', timestamp: new Date() };
+});
+
+// Route to fetch structure data based on PubMed ID
+router.get('/api/structure/:pubmedId', async (ctx) => {
+  const { pubmedId } = ctx.params;
+  
+  try {
+    // Perform a comprehensive link search (NCBI LinkSets + UniProt Fallback)
+    const results = await runLinkSearch(pubmedId);
+    
+    // Check if we found anything actionable (PDB codes, structures, or BLAST-ready DBs)
+    const hasData = (results.pdb && results.pdb.length > 0) || 
+                    results.structure || 
+                    (results.blastDbs && results.blastDbs.length > 0);
+
+    if (!hasData) {
+      ctx.status = 404;
+      ctx.body = { error: 'No structural or linkage data found for this PubMed ID' };
+      return;
+    }
+
+    // Flatten the response for the frontend: prioritize resolved structure objects, then PDB arrays
+    const dataToSend = results.structure || (results.pdb && results.pdb.length > 0 ? results.pdb : results);
+
+    ctx.status = 200;
+    ctx.body = { data: dataToSend };
+  } catch (error) {
+    console.error(`Link search error for PMID ${pubmedId}:`, error);
+    ctx.status = 500;
+    ctx.body = { error: 'Internal server error while performing link search' };
+  }
 });
 
 // PubMed Search Route
