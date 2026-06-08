@@ -136,7 +136,9 @@ const AbstractView = ({ article, onSave, saving }) => {
         .speech-controls {
           flex-shrink: 0;
           display: flex;
+          flex-direction: column;
           gap: 8px;
+          min-width: 140px;
         }
 
         .speech-btn {
