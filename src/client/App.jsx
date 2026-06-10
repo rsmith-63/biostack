@@ -39,9 +39,6 @@ function App() {
               <HealthStatus />
             </Suspense>
           </div>
-          
-          <div id="header-portal" style={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}></div>
-
           <button 
             onClick={toggleTheme} 
             className="theme-toggle-btn notranslate"

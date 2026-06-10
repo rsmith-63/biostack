@@ -30,9 +30,11 @@ const AbstractView = ({ article, onSave, saving }) => {
         fetch(`/api/structure/${pubmedId}`)
           .then(res => res.json())
           .then(result => {
-            if (result.data) {
+            if (result.data && (result.data.url || (Array.isArray(result.data) && result.data.length > 0))) {
               setHasStructure(true);
               setStructureData(result.data);
+            } else {
+              setHasStructure(false);
             }
           })
           .catch(() => setHasStructure(false));

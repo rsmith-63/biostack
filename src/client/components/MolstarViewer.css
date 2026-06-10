@@ -1,46 +1,39 @@
 /* src/client/components/MolstarViewer.css */
 
-/* Optimized for integration into the global App header */
-.ui-overlay.header-integrated {
-  position: static;
-  background: none;
-  padding: 0;
-  border-radius: 0;
-  backdrop-filter: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-}
-
-.ui-overlay.header-integrated .status-text {
-  margin: 0;
-  font-size: 0.75rem;
-  line-height: 1;
-}
-
-.ui-overlay.header-integrated .search-bar {
-  display: flex;
-  gap: 5px;
-}
-
 .molstar-app-container {
   position: relative;
-  width: 100vw;
-  height: 100vh; /* Crucial: Forces the app to fill the screen */
+  width: 100%;
+  height: calc(100vh - 280px); /* Fits between header and footer without scrollbars */
+  min-height: 500px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.molstar-wrapper {
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Ensure the injected Mol* canvas element fills our wrapper */
+.molstar-wrapper .msp-plugin {
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .headless-canvas {
-  flex-grow: 1; /* Tells the canvas wrapper to fill remaining space */
+  flex-grow: 1; 
   position: relative;
   width: 100%;
   height: 100%; 
-  min-height: 500px; /* Fallback absolute height */
   overflow: hidden;
-  /* REACT 19 FIX: Ensure the container has a non-zero layout before WebGL init */
   display: block;
 }
 
@@ -52,16 +45,39 @@
   position: absolute;
   top: 0;
   left: 0;
+/* Viewer Header: Integrated top bar */
+.viewer-header {
+  flex-shrink: 0;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  z-index: 10;
+  color: var(--text-primary);
 }
 
-/* Optional: Clean up the UI overlay positioning */
-.ui-overlay {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 10;
-  background: rgba(25, 25, 25, 0.85); /* Adjust for your dark theme */
-  padding: 10px;
-  border-radius: 6px;
-  backdrop-filter: blur(4px);
+.viewer-header .status-text {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 500;
+  opacity: 0.8;
 }
+
+.viewer-header .search-bar {
+  display: flex;
+  gap: 10px;
+}
+
+.viewer-header .search-bar input {
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  width: 250px;
+}
+
+.viewer-header .fetch-btn {
+  padding: 6px 15px;
+  font-size: 0.9rem;
+}
+
+.molstar-app-container {
