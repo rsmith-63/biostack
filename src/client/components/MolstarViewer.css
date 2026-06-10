@@ -1,5 +1,29 @@
 /* src/client/components/MolstarViewer.css */
 
+/* Optimized for integration into the global App header */
+.ui-overlay.header-integrated {
+  position: static;
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  backdrop-filter: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.ui-overlay.header-integrated .status-text {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+.ui-overlay.header-integrated .search-bar {
+  display: flex;
+  gap: 5px;
+}
+
 .molstar-app-container {
   position: relative;
   width: 100vw;
