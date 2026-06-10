@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PubmedSearch from './PubmedSearch';
 import MolstarViewer from './components/MolstarViewer';
 import VoiceSettings from './components/VoiceSettings';
-import { useDarkMode } from './hooks/useDarkMode';
+import { useTheme } from './hooks/ThemeContext';
 
 // Demo of using a promise with React 19's 'use' hook
 const healthPromise = fetch('/api/health').then(res => res.json());
@@ -27,7 +27,7 @@ function MainDashboard() {
 }
 
 function App() {
-  const { theme, toggleTheme } = useDarkMode();
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <Router>

@@ -6,7 +6,7 @@ import { Plugin } from 'molstar/lib/mol-plugin-ui/plugin';
 import { PluginCommands } from 'molstar/lib/mol-plugin/commands';
 import { Color } from 'molstar/lib/mol-util/color';
 import { resolveStructureUrl } from '../utils/structureResolver';
-import { useDarkMode } from '../hooks/useDarkMode';
+import { useTheme } from '../hooks/ThemeContext';
 import 'molstar/build/viewer/molstar.css';
 import './MolstarViewer.css';
 
@@ -19,7 +19,7 @@ export default function MolstarViewer() {
   const { pubmedId, pmid } = useParams();
   const activeId = pubmedId || pmid; 
   const navigate = useNavigate();
-  const { theme } = useDarkMode();
+  const { theme } = useTheme();
   const [plugin, setPlugin] = useState(null);
   const [status, setStatus] = useState('Ready');
   const [loading, setLoading] = useState(false);
