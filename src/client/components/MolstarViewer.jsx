@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useParams, useNavigate } from 'react-router-dom';
 import { PluginUIContext } from 'molstar/lib/mol-plugin-ui/context';
 import { DefaultPluginUISpec } from 'molstar/lib/mol-plugin-ui/spec';
 import { Plugin } from 'molstar/lib/mol-plugin-ui/plugin';
+import { PluginConfig } from 'molstar/lib/mol-plugin/config';
 import { PluginCommands } from 'molstar/lib/mol-plugin/commands';
 import { Color } from 'molstar/lib/mol-util/color';
 import { resolveStructureUrl } from '../utils/structureResolver';
@@ -14,6 +16,7 @@ import './MolstarViewer.css';
  * Full Mol* Viewer with UI Panels
  * Integrated as a native React component for React 19 compatibility.
  * Theme-aware background synchronization via PluginCommands.
+ * UI Controls are portaled into the global application header.
  */
 export default function MolstarViewer() {
   const { pubmedId, pmid } = useParams();
@@ -46,7 +49,12 @@ export default function MolstarViewer() {
           },
           components: {
             remoteState: 'none'
-          }
+          },
+          config: [
+            [PluginConfig.Viewport.ShowExpand, true],
+            [PluginConfig.Viewport.ShowControls, true],
+            [PluginConfig.Viewport.ShowSettings, true]
+          ]
         };
 
         const ctx = new PluginUIContext(spec);
@@ -77,8 +85,6 @@ export default function MolstarViewer() {
   useEffect(() => {
     if (plugin) {
       const isDark = theme === 'dark';
-      // Match exactly the CSS variables in App.css
-      // Dark: #0f172a, Light: #ffffff
       const bgColor = isDark ? Color(0x0f172a) : Color(0xffffff);
       
       PluginCommands.Canvas3D.SetSettings(plugin, {
@@ -146,7 +152,7 @@ export default function MolstarViewer() {
       setTimeout(() => {
         plugin.managers.camera.reset();
         plugin.canvas3d?.handleResize();
-        plugin.canvas3d?.requestFrames();
+        plugin.canvas3d?.requestDraw();
       }, 150);
       
       setStatus(`Success: Loaded ${targetStructure.source}`);
@@ -211,45 +217,48 @@ export default function MolstarViewer() {
 
   return (
     <section className="molstar-app-container">
-      <header className="viewer-header">
-        <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
-          <button 
-            onClick={handleReturn}
-            className="return-btn"
-            title="Return to Search"
-            style={{ 
-              background: 'none', 
-              border: 'none', 
-              color: 'inherit', 
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '5px'
-            }}
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <line x1="19" y1="12" x2="5" y2="12"></line>
-              <polyline points="12 19 5 12 12 5"></polyline>
-            </svg>
-          </button>
-          <div className="search-bar">
-            <input 
-              type="text" 
-              value={searchId}
-              onChange={(e) => setSearchId(e.target.value)}
-              placeholder="UniProt Accession (e.g., O88844)"
-            />
+      {createPortal(
+        <div className="viewer-header-portal-content">
+          <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
             <button 
-              onClick={() => loadStructure(searchId)} 
-              disabled={loading || !searchId.trim()}
-              className="fetch-btn"
+              onClick={handleReturn}
+              className="return-btn"
+              title="Return to Search"
+              style={{ 
+                background: 'none', 
+                border: 'none', 
+                color: 'inherit', 
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                padding: '5px'
+              }}
             >
-              {loading ? 'Fetching...' : 'Fetch Structure'}
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
             </button>
+            <div className="search-bar">
+              <input 
+                type="text" 
+                value={searchId}
+                onChange={(e) => setSearchId(e.target.value)}
+                placeholder="UniProt Accession (e.g., O88844)"
+              />
+              <button 
+                onClick={() => loadStructure(searchId)} 
+                disabled={loading || !searchId.trim()}
+                className="fetch-btn"
+              >
+                {loading ? 'Fetching...' : 'Fetch Structure'}
+              </button>
+            </div>
+            <p className={`status-text ${status.startsWith('Error') ? 'error' : ''}`}>{status}</p>
           </div>
-          <p className={`status-text ${status.startsWith('Error') ? 'error' : ''}`}>{status}</p>
-        </div>
-      </header>
+        </div>,
+        document.getElementById('header-portal') || document.body
+      )}
 
       <div className={`molstar-wrapper msp-theme-${theme}`} style={{ flexGrow: 1, position: 'relative', width: '100%', height: '100%' }}>
         {plugin && <Plugin plugin={plugin} />}

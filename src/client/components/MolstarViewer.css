@@ -1,5 +1,79 @@
 /* src/client/components/MolstarViewer.css */
 
+/* High Contrast Overrides for Mol* Dark Theme */
+.msp-theme-dark {
+  --msp-contrast-text: black;
+  --msp-panel-bg: #000000; /* Deep black for maximum contrast */
+  --msp-header-bg: #0c0d11;
+  --msp-btn-bg: #1a202c;
+  --msp-btn-hover-bg: #2d3748;
+}
+
+/* Force dark backgrounds on all main UI regions */
+.msp-theme-dark .msp-plugin,
+.msp-theme-dark .msp-layout-left,
+.msp-theme-dark .msp-layout-right,
+.msp-theme-dark .msp-layout-top,
+.msp-theme-dark .msp-layout-bottom,
+.msp-theme-dark .msp-sequence,
+.msp-theme-dark .msp-sequence-wrapper-non-empty,
+.msp-theme-dark .msp-control-group-wrapper,
+.msp-theme-dark .msp-control-group-header {
+  background-color: var(--msp-panel-bg) !important;
+  background: var(--msp-panel-bg) !important;
+}
+
+/* Force all UI text to high contrast white */
+.msp-theme-dark .msp-plugin-content,
+.msp-theme-dark .msp-control-row,
+.msp-theme-dark .msp-sequence-chain-label,
+.msp-theme-dark .msp-sequence-wrapper,
+.msp-theme-dark .msp-log-entry,
+.msp-theme-dark .msp-btn,
+.msp-theme-dark button,
+.msp-theme-dark .msp-control-row label {
+  color: var(--msp-contrast-text) !important;
+  opacity: 1 !important;
+}
+
+/* Tooltips and Toasts */
+.msp-theme-dark .msp-highlight-info,
+.msp-theme-dark .msp-toast-entry,
+.msp-theme-dark .msp-help-section,
+.msp-theme-dark .msp-simple-help-section {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #4a5568 !important; /* Thicker border for clarity */
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.msp-theme-dark .msp-highlight-info-hr {
+  background-color: #3b82f6 !important;
+}
+
+.msp-theme-dark .msp-icon {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+.msp-theme-dark .msp-btn-link {
+  color: #60a5fa !important;
+  font-weight: 700 !important;
+}
+
+.msp-theme-dark .msp-form-control,
+.msp-theme-dark select,
+.msp-theme-dark input {
+  border-color: #4a5568 !important;
+  background-color: #1a202c !important;
+  color: #ffffff !important;
+}
+
+/* Fix for Material Icons in Mol* */
+.msp-plugin .msp-material-icon svg {
+  fill: black !important;
+}
+
 .molstar-app-container {
   position: relative;
   width: 100%;
@@ -45,6 +119,8 @@
   position: absolute;
   top: 0;
   left: 0;
+}
+
 /* Viewer Header: Integrated top bar */
 .viewer-header {
   flex-shrink: 0;
@@ -79,5 +155,3 @@
   padding: 6px 15px;
   font-size: 0.9rem;
 }
-
-.molstar-app-container {
