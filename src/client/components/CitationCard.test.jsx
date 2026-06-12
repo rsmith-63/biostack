@@ -9,7 +9,7 @@ vi.mock('./Tooltip', () => ({
 }));
 
 vi.mock('./AbstractView', () => ({
-  default: ({ text }) => <div>{text}</div>
+  default: ({ article }) => <div>{article?.abstract}</div>
 }));
 
 // Mock language detection

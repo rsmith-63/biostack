@@ -1,0 +1,174 @@
+/* src/client/components/MolstarViewer.css */
+
+/* --- High Contrast Dark Mode: Professional Workstation Aesthetic --- */
+
+.msp-theme-dark {
+  --msp-contrast-text: #ffffff;
+  --msp-panel-bg: #000000;
+  --msp-accent-bg: #ffffff; /* Light background for buttons/actions */
+  --msp-accent-text: #000000; /* Black text for buttons/actions */
+}
+
+/* 1. Global Blackout for Panels and Containers */
+.msp-theme-dark .msp-plugin,
+.msp-theme-dark .msp-plugin div:not(.msp-btn),
+.msp-theme-dark .msp-plugin section,
+.msp-theme-dark .msp-plugin header,
+.msp-theme-dark .msp-plugin .msp-scrollable-container,
+.msp-theme-dark .msp-plugin .msp-control-group-wrapper,
+.msp-theme-dark .msp-plugin .msp-control-group-header,
+.msp-theme-dark .msp-plugin .msp-transform-header,
+.msp-theme-dark .msp-plugin .msp-flex-row,
+.msp-theme-dark .msp-plugin .msp-sequence,
+.msp-theme-dark .msp-plugin .msp-sequence-wrapper {
+  background-color: #000000 !important;
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+
+/* 2. Standard Workspace Text (Labels, Log, Sequence) */
+.msp-theme-dark .msp-plugin-content,
+.msp-theme-dark .msp-control-row label,
+.msp-theme-dark .msp-sequence-chain-label,
+.msp-theme-dark .msp-log-entry,
+.msp-theme-dark .msp-control-group-header button {
+  color: #ffffff !important;
+}
+
+/* 3. INVERTED CONTRAST BUTTONS: Light background, Black text */
+.msp-theme-dark .msp-btn,
+.msp-theme-dark button:not(.msp-btn-link),
+.msp-theme-dark .msp-form-control,
+.msp-theme-dark select,
+.msp-theme-dark input {
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid #000000 !important;
+  opacity: 1 !important;
+  font-weight: 600 !important;
+}
+
+/* 4. Icons inside Inverted Buttons */
+.msp-theme-dark .msp-btn .msp-icon,
+.msp-theme-dark button .msp-icon,
+.msp-theme-dark .msp-btn .msp-material-icon svg,
+.msp-theme-dark button .msp-material-icon svg {
+  color: #000000 !important;
+  fill: #000000 !important;
+}
+
+/* 5. Tooltips, Toasts, and Hover popups (Solid Blackout with White Border) */
+.msp-theme-dark .msp-highlight-info,
+.msp-theme-dark .msp-toast-entry,
+.msp-theme-dark .msp-help-section,
+.msp-theme-dark .msp-simple-help-section,
+.msp-theme-dark .msp-hover-box-body {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #ffffff !important;
+  box-shadow: 0 0 15px rgba(255,255,255,0.2);
+}
+
+.msp-theme-dark .msp-highlight-info-hr {
+  background-color: #ffffff !important;
+}
+
+/* 6. Blue Action Links (Special Case) */
+.msp-theme-dark .msp-btn-link {
+  background: transparent !important;
+  color: #60a5fa !important;
+  font-weight: 800 !important;
+  text-decoration: underline !important;
+}
+
+/* Sequence Viewer Legibility */
+.msp-plugin .msp-sequence-wrapper .msp-sequence-present {
+  font-size: 1.2em !important; /* 20% increase */
+  color: #000000 !important; /* Black for Light Mode */
+}
+
+.msp-theme-dark .msp-sequence-wrapper .msp-sequence-present {
+  color: #ffffff !important; /* White for Dark Mode */
+}
+
+/* --- Layout & Integration --- */
+
+.molstar-app-container {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 280px);
+  min-height: 500px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.molstar-wrapper {
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.molstar-wrapper .msp-plugin {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.headless-canvas {
+  flex-grow: 1; 
+  position: relative;
+  width: 100%;
+  height: 100%; 
+  overflow: hidden;
+  display: block;
+}
+
+.headless-canvas canvas {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.viewer-header {
+  flex-shrink: 0;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  z-index: 10;
+  color: var(--text-primary);
+}
+
+.viewer-header .status-text {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.viewer-header .search-bar {
+  display: flex;
+  gap: 10px;
+}
+
+.viewer-header .search-bar input {
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  width: 250px;
+}
+
+.viewer-header .fetch-btn {
+  padding: 6px 15px;
+  font-size: 0.9rem;
+}

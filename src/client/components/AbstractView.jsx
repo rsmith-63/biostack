@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useNativeSpeech } from '../hooks/useNativeSpeech';
 import { getActiveLanguage } from '../utils/languageDetection'; 
 
@@ -6,25 +6,60 @@ import { getActiveLanguage } from '../utils/languageDetection';
  * AbstractView provides a UI for reading scientific abstracts.
  * It integrates with the language detection utility to automatically 
  * match the system voice with the dashboard's current translation.
+ * Now includes a conditional 3D Viewer launch button.
  */
-const AbstractView = ({ title, text }) => {
+const AbstractView = ({ article, onSave, saving }) => {
   // Use 'text' as the prop for the abstract content to match CitationCard's current usage
-  const abstractText = text;
+  const abstractText = article?.abstract || 'No abstract available.';
+  const title = article?.title || 'Untitled';
+  const pubmedId = article?.pmid;
   const contentRef = useRef(null);
+  const [hasStructure, setHasStructure] = useState(false);
+  const [structureData, setStructureData] = useState(null);
 
-  // 1. Get the current active language from the Google Translate cookie
+  // 1. Check for structural data availability ONLY when needed
+  // We can use the 'open' state of the parent <details> or just trigger it on mount
+  // Since AbstractView is inside <details>, it mounts when the user first expands it?
+  // Actually, in CitationCard it's always in the JSX.
+  // Let's use an Intersection Observer or just a "load" trigger.
+  // For now, let's just add a small random delay to stagger the initial burst
+  useEffect(() => {
+    if (pubmedId) {
+      const staggeredDelay = Math.random() * 2000; // 0-2 seconds delay
+      const timer = setTimeout(() => {
+        fetch(`/api/structure/${pubmedId}`)
+          .then(res => res.json())
+          .then(result => {
+            if (result.data && (result.data.url || (Array.isArray(result.data) && result.data.length > 0))) {
+              setHasStructure(true);
+              setStructureData(result.data);
+            } else {
+              setHasStructure(false);
+            }
+          })
+          .catch(() => setHasStructure(false));
+      }, staggeredDelay);
+      return () => clearTimeout(timer);
+    }
+  }, [pubmedId]);
+
+  // 2. Get the current active language from the Google Translate cookie
   const targetLanguage = getActiveLanguage();
   
-  // 2. Use the global speech hook with the target language code.
-  // This ensures the voice matches the dashboard's current translation.
+  // 3. Use the global speech hook with the target language code.
   const { speak, stop, isSpeaking } = useNativeSpeech(targetLanguage);
 
   const handleSpeak = () => {
-    // CAPTURE TRANSLATED TEXT:
-    // If Google Translate is active, 'abstractText' (the React prop) remains English.
-    // We read from the DOM via contentRef to get the actual translated text the user sees.
     const textToRead = contentRef.current ? contentRef.current.innerText : abstractText;
     speak(textToRead);
+  };
+
+  const handleLaunchViewer = () => {
+    // Optimization: Pass the already-fetched data to the new tab via sessionStorage
+    if (structureData) {
+      sessionStorage.setItem(`structure_${pubmedId}`, JSON.stringify(structureData));
+    }
+    window.open(`/viewer/${pubmedId}`, '_blank');
   };
 
   return (
@@ -36,6 +71,27 @@ const AbstractView = ({ title, text }) => {
           </h2>
         )}
         <div className="speech-controls">
+          {hasStructure && (
+            <button 
+              className="speech-btn viewer"
+              onClick={handleLaunchViewer}
+              aria-label="Launch 3D Viewer"
+              title="Launch 3D Viewer"
+            >
+              <span className="icon">🧬</span> <span>3D Viewer</span>
+            </button>
+          )}
+          {onSave && (
+            <button 
+              className="speech-btn save" 
+              onClick={onSave}
+              disabled={saving}
+              aria-label="Save to Research Folder"
+              title="Save to Research Folder"
+            >
+              <span className="icon">💾</span> <span>{saving ? 'Saving...' : 'Save'}</span>
+            </button>
+          )}
           {!isSpeaking ? (
             <button 
               className="speech-btn play" 
@@ -90,6 +146,10 @@ const AbstractView = ({ title, text }) => {
 
         .speech-controls {
           flex-shrink: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          min-width: 140px;
         }
 
         .speech-btn {
@@ -106,8 +166,18 @@ const AbstractView = ({ title, text }) => {
           white-space: nowrap;
         }
 
+        .speech-btn.viewer {
+          background-color: #7c3aed;
+          color: white;
+        }
+
         .speech-btn.play {
           background-color: #2563eb;
+          color: white;
+        }
+
+        .speech-btn.save {
+          background-color: #059669;
           color: white;
         }
 
