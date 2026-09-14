@@ -133,15 +133,20 @@ router.post('/api/pubmed/search', async (ctx) => {
     console.log(`Searching PubMed for: "${cleanQuery}" (limit: ${maxResults})`);
 
     // STEP 1: Search for PMIDs
-    const searchResponse = await mcpClient.callTool({
-      name: "pubmed_search_articles",
-      arguments: {
-        queryTerm: cleanQuery,
-        maxResults: maxResults,
-        sortBy: "relevance"
-      }
-    });
-
+    const searchResponse = await mcpClient.callTool(
+  {
+    name: "pubmed_search_articles",
+    arguments: {
+      queryTerm: cleanQuery,
+      maxResults: maxResults,
+      sortBy: "relevance"
+    }
+  },
+  undefined, // Schema override (pass undefined to use default)
+  {
+    timeout: 120000 // 120 seconds in milliseconds
+  }
+);
     const searchText = searchResponse.content[0].text;
     
     // Defensive JSON parsing
