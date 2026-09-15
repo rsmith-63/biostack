@@ -20,6 +20,7 @@
     "e2e": "playwright test"
   },
   "dependencies": {
+    "@iflow-mcp/pubmed-mcp-server": "^1.4.4",
     "@modelcontextprotocol/sdk": "^1.28.0",
     "@ncbijs/blast": "file:../ncbijs/packages/blast",
     "@ncbijs/datasets": "file:../ncbijs/packages/datasets",
