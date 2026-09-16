@@ -379,6 +379,7 @@ ${abstract || 'No abstract available.'}
 app.use(router.routes()).use(router.allowedMethods());
 
 const PORT = process.env.PORT || 3000;
+const HOST = '0.0.0.0';
 
 if (process.env.NODE_ENV !== 'test') {
   app.listen(PORT, () => {
