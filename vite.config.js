@@ -3,16 +3,17 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  // Sets root relative to where index.html is if needed
-  root: 'src/client',
   build: {
-    // Outputs build files to dist at the root of the project
-    outDir: '../../dist',
-    emptyOutDir: true,
+    chunkSizeWarningLimit: 4000, // Raises warning threshold to 4MB
     rollupOptions: {
       output: {
-        manualChunks: {
-          molstar: ['molstar']
+        manualChunks(id) {
+          if (id.includes('node_modules/molstar')) {
+            return 'molstar';
+          }
+          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) {
+            return 'react-vendor';
+          }
         }
       }
     }
