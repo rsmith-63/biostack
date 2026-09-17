@@ -1,6 +1,13 @@
 import { describe, it, expect, vi } from 'vitest';
 import request from 'supertest';
 import app from './index.js';
+import fs from 'fs/promises';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const DIST_DIR = path.resolve(__dirname, '../../dist');
 
 // Mock the MCP connection to avoid actual network/npx calls during tests
 vi.mock('@modelcontextprotocol/sdk/client/index.js', () => {
@@ -68,5 +75,26 @@ describe('API Integration Tests', () => {
       .send({ query: '' });
     expect(response.status).toBe(400);
     expect(response.body.success).toBe(false);
+  });
+
+  it('should serve index.html for the root route', async () => {
+    const response = await request(app.callback()).get('/');
+    expect(response.status).toBe(200);
+    expect(response.header['content-type']).toContain('text/html');
+    const indexContent = await fs.readFile(path.join(DIST_DIR, 'index.html'), 'utf-8');
+    expect(response.text).toBe(indexContent);
+  });
+
+  it('should serve index.html for unknown non-api routes (SPA fallback)', async () => {
+    const response = await request(app.callback()).get('/dashboard/view/123');
+    expect(response.status).toBe(200);
+    expect(response.header['content-type']).toContain('text/html');
+    const indexContent = await fs.readFile(path.join(DIST_DIR, 'index.html'), 'utf-8');
+    expect(response.text).toBe(indexContent);
+  });
+
+  it('should return 404 for unknown api routes (no fallback)', async () => {
+    const response = await request(app.callback()).get('/api/unknown-route');
+    expect(response.status).toBe(404);
   });
 });

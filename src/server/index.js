@@ -329,6 +329,7 @@ router.post('/api/pubmed/mesh-lookup', async (ctx) => {
 });
 
 const RESEARCH_DIR = path.join(process.cwd(), 'research');
+const DIST_DIR = path.resolve(__dirname, '../../dist');
 
 router.post('/api/pubmed/bulk-save', async (ctx) => {
   try {
@@ -376,7 +377,28 @@ ${abstract || 'No abstract available.'}
   }
 });
 
+// 1. API Routes
 app.use(router.routes()).use(router.allowedMethods());
+
+// 2. Static Assets
+app.use(serve(DIST_DIR));
+
+// 3. SPA Fallback (Catch-all)
+app.use(async (ctx, next) => {
+  // Only fallback for non-API routes and GET requests that aren't handled by static middleware
+  if (ctx.status === 404 && ctx.method === 'GET' && !ctx.path.startsWith('/api')) {
+    try {
+      const indexHtml = await fs.readFile(path.join(DIST_DIR, 'index.html'), 'utf-8');
+      ctx.type = 'text/html';
+      ctx.body = indexHtml;
+    } catch (e) {
+      // If index.html is missing (e.g. not built yet), continue to 404
+      await next();
+    }
+  } else {
+    await next();
+  }
+});
 
 const PORT = process.env.PORT || 3000;
 const HOST = '0.0.0.0';
