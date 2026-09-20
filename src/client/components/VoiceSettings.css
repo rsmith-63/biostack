@@ -11,6 +11,14 @@
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
+@media (max-width: 600px) {
+  .voice-settings-panel {
+    padding: 12px;
+    margin-top: 10px;
+    overflow-x: auto;
+  }
+}
+
 .settings-header {
   margin: 0 0 12px 0;
   font-size: 12px;
