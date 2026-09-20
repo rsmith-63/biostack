@@ -1,8 +1,8 @@
 /* /Users/robsmith/biostack/src/client/styles/base.css */
 
 html {
-  /* Prevent horizontal scroll issues caused by subtle scaling overflow */
-  overflow-x: hidden;
+  /* Allow horizontal scroll if content overflows */
+  overflow-x: auto;
   /* Improve text rendering on small high-DPI displays */
   -webkit-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
