@@ -1,0 +1,31 @@
+/* /Users/robsmith/biostack/src/client/styles/base.css */
+
+html {
+  /* Prevent horizontal scroll issues caused by subtle scaling overflow */
+  overflow-x: hidden;
+  /* Improve text rendering on small high-DPI displays */
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100dvh;
+  
+  /* Support hardware cutouts, dynamic islands, and iOS home bars */
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  padding-left: env(safe-area-inset-left, 0px);
+}
+
+/* Ensure interactive controls maintain accessible target areas on small screens */
+button, 
+a, 
+input, 
+select {
+  min-height: var(--touch-target-min);
+  min-width: var(--touch-target-min);
+}
