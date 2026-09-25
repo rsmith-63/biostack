@@ -357,3 +357,28 @@ footer {
   font-weight: 600;
   color: var(--text-secondary);
 }
+
+.main-dashboard {
+  display: flex;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+.search-pane {
+  flex: 1;
+  min-width: 0;
+}
+
+.voice-pane {
+  width: 300px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
+  .main-dashboard {
+    flex-direction: column;
+  }
+  .voice-pane {
+    width: 100%;
+  }
+}

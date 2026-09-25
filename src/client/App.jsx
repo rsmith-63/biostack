@@ -15,11 +15,11 @@ function HealthStatus() {
 
 function MainDashboard() {
   return (
-    <main style={{ display: 'flex', gap: '20px' }}>
-      <div style={{ flex: 1 }}>
+    <main className="main-dashboard">
+      <div className="search-pane">
         <PubmedSearch />
       </div>
-      <aside style={{ width: '300px' }}>
+      <aside className="voice-pane">
         <VoiceSettings />
       </aside>
     </main>
