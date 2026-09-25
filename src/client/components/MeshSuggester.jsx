@@ -3,6 +3,7 @@ import './MeshSuggester.css';
 import { appendDateRange } from '../utils/pubmedDateFormatter';
 
 function MeshSuggester({ searchTerm, onSelectMesh, onDateFilterApply }) {
+  const [isOpen, setIsOpen] = useState(true);
   const [loading, setLoading] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
   const [error, setError] = useState(null);
@@ -65,8 +66,34 @@ function MeshSuggester({ searchTerm, onSelectMesh, onDateFilterApply }) {
     }
   };
 
+  if (!isOpen) {
+    return (
+      <div className="mesh-suggester-toggle-container">
+        <button 
+          type="button" 
+          onClick={() => setIsOpen(true)} 
+          className="mesh-open-btn"
+        >
+          🪄 Show MeSH & Date Tools
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div className="mesh-suggester">
+      <div className="mesh-suggester-header">
+        <button 
+          type="button" 
+          onClick={() => setIsOpen(false)} 
+          className="mesh-dismiss-btn"
+          aria-label="Close MeSH Suggester and date panel"
+          title="Close panel"
+        >
+          ✕ Close
+        </button>
+      </div>
+
       <div className="control-panels" style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
         {/* --- MeSH Suggestion Panel --- */}
         <div className="mesh-panel" style={{ flex: '1', minWidth: '250px' }}>
