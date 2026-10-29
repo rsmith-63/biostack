@@ -54,5 +54,18 @@
     "supertest": "^7.2.2",
     "vite": "^6.0.0",
     "vitest": "^4.1.5"
+  },
+  "overrides": {
+    "molstar": {
+      "canvas": "^3.1.0"
+    }
+  },
+  "allowScripts": {
+    "canvas@3.2.3": true,
+    "file:../esbuild@0.27.7/node_modules/esbuild": true,
+    "file:../../esbuild@0.27.7/node_modules/esbuild": true,
+    "protobufjs@7.6.6": true,
+    "citation-js@0.7.22": true,
+    "file:../../fsevents@2.3.3/node_modules/fsevents": true
   }
 }
