@@ -11,29 +11,44 @@ const AbstractView = ({ article, onSave, saving }) => {
   const pubmedId = article?.pmid;
   const contentRef = useRef(null);
 
-  // 1. 3D viewer button instant mount (Read straight from the backend payload identifier to identify cards to render 3D viewer)
+  // Initial state check from the backend article payload
   const [hasStructure, setHasStructure] = useState(!!article?.is3DViewerEligible);
-
-  // 2. Rehydrate 3D viewer buttons as necessary. 
   const [structureData, setStructureData] = useState(null);
+  
+  // Track whether the asynchronous rehydration is actively working
+  const [isRehydrating, setIsRehydrating] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
+
     if (pubmedId && hasStructure && !structureData) {
-      // Quietly ask the server if this record has actual validated 3D data structures
+      setIsRehydrating(true);
+      
       fetch(`/api/structure/${pubmedId}`)
         .then(res => res.json())
         .then(result => {
-          // If valid 3D assets are resolved, bind them silently to the viewer button state
+          if (!isMounted) return;
+          
           if (result.data && (result.data.url || (Array.isArray(result.data) && result.data.length > 0))) {
             setStructureData(result.data);
             setHasStructure(true);
           } else {
-            // For records with missing or empty datasets drop the button out of view silently
             setHasStructure(false);
           }
         })
-        .catch(() => setHasStructure(false));
+        .catch(() => {
+          if (isMounted) setHasStructure(false);
+        })
+        .finally(() => {
+          if (isMounted) setIsRehydrating(false);
+        });
+    } else {
+      setIsRehydrating(false);
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [pubmedId, hasStructure, structureData]);
 
   const targetLanguage = getActiveLanguage();
@@ -64,8 +79,10 @@ const AbstractView = ({ article, onSave, saving }) => {
   };
 
   const handleLaunchViewer = () => {
-    const activePayload = structureData || { pmid: pubmedId, source: "SWISS-MODEL-PENDING" };
-    sessionStorage.setItem(`structure_${pubmedId}`, JSON.stringify(activePayload));
+    // If clicking is allowed, structureData is fully locked and populated
+    if (!structureData) return;
+    
+    sessionStorage.setItem(`structure_${pubmedId}`, JSON.stringify(structureData));
     window.open(`/viewer/${pubmedId}`, '_blank');
   };
 
@@ -73,7 +90,7 @@ const AbstractView = ({ article, onSave, saving }) => {
     <section className="abstract-card">
       <div className="abstract-header notranslate">
         {title && <h2 className="abstract-title" key={`title-${targetLanguage}`}><span>{title}</span></h2>}
-        <div className="speech-controls">
+        <div className="speech-controls" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
           {onSave && (
             <button className="speech-btn save" onClick={onSave} disabled={saving}>
               <span className="icon">💾</span> <span>{saving ? 'Saving...' : 'Save'}</span>
@@ -88,9 +105,27 @@ const AbstractView = ({ article, onSave, saving }) => {
               <span className="icon">■</span> <span>Stop</span>
             </button>
           )}
-           {hasStructure && (
-            <button className="speech-btn viewer" onClick={handleLaunchViewer}>
-              <span className="icon">🧬</span> <span>3D Viewer</span>
+          
+          {hasStructure && (
+            <button 
+              className={`speech-btn viewer ${isRehydrating ? 'loading' : 'ready'}`}
+              onClick={handleLaunchViewer} 
+              disabled={isRehydrating}
+              style={{
+                opacity: isRehydrating ? 0.7 : 1,
+                cursor: isRehydrating ? 'not-allowed' : 'pointer',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              {isRehydrating ? (
+                <>
+                  <span className="icon">⏳</span> <span>...loading 3D info</span>
+                </>
+              ) : (
+                <>
+                  <span className="icon">🧬</span> <span>3D Viewer</span>
+                </>
+              )}
             </button>
           )}
         </div>
