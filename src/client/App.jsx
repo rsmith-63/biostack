@@ -1,10 +1,11 @@
-import React, { use, Suspense, useState } from 'react';
+import React, { use, Suspense, useState, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import PubmedSearch from './components/PubmedSearch';
-import MolstarViewer from './components/MolstarViewer';
+// import MolstarViewer from './components/MolstarViewer';
 import VoiceSettings from './components/VoiceSettings';
 import { useTheme } from './hooks/ThemeContext';
 
+const MolstarViewer = lazy(() => import('./components/MolstarViewer'));
 const healthPromise = fetch('/api/health').then(res => res.json());
 
 function HealthStatus() {
@@ -75,31 +76,31 @@ function MainDashboard() {
         <PubmedSearch />
       </div>
       <section className="main-addl-tools">
-      <div className="voice-pane">
-        <VoiceSettings initialOpen={false} />
-      </div>
+        <div className="voice-pane">
+          <VoiceSettings initialOpen={false} />
+        </div>
 
-      <div className='search-3d-global' style={{ margin: '12px 0', textAlign: 'left' }}>
-        <button
-          className="search-3d-global-btn"
-          onClick={handleToggleViewer}
-        >
-          <span>{show3dSearch ? '❌ Close 3D Search' : '🧬 Search 3D structures'}</span>
-        </button>
-        {show3dSearch && (
-          <div
-            className="inline-molstar-viewport"
+        <div className='search-3d-global' style={{ margin: '12px 0', textAlign: 'left' }}>
+          <button
+            className="search-3d-global-btn"
+            onClick={handleToggleViewer}
           >
-            {isReadyToRender ? (
-              <MolstarViewer />
-            ) : (
-              <div style={{ padding: '20px', color: 'var(--text-secondary)' }}>
-                Initializing 3D Viewport...
-              </div>
-            )}
-          </div>
-        )}
-      </div>
+            <span>{show3dSearch ? '❌ Close 3D Search' : '🧬 Search 3D structures'}</span>
+          </button>
+          {show3dSearch && (
+            <div
+              className="inline-molstar-viewport"
+            >
+              {isReadyToRender ? (
+                <MolstarViewer />
+              ) : (
+                <div style={{ padding: '20px', color: 'var(--text-secondary)' }}>
+                  Initializing 3D Viewport...
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </section>
     </main>
   );
@@ -140,7 +141,14 @@ function App() {
 
         <Routes>
           <Route path="/" element={<MainDashboard />} />
-          <Route path="/viewer/:pubmedId" element={<MolstarViewer />} />
+          <Route
+            path="/viewer/:pubmedId"
+            element={
+              <Suspense fallback={<div style={{ padding: '40px', textAlign: 'center', color: 'var(--text-secondary)' }}>🧬 Loading 3D Molecular Graphics Engine...</div>}>
+                <MolstarViewer />
+              </Suspense>
+            }
+          />
         </Routes>
 
         <footer>
