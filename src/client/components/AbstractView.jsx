@@ -1,206 +1,139 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useNativeSpeech } from '../hooks/useNativeSpeech';
-import { getActiveLanguage } from '../utils/languageDetection'; 
+import { getActiveLanguage } from '../utils/languageDetection';
+import VoiceSettings from '../components/VoiceSettings';
 
-/**
- * AbstractView provides a UI for reading scientific abstracts.
- * It integrates with the language detection utility to automatically 
- * match the system voice with the dashboard's current translation.
- * Now includes a conditional 3D Viewer launch button.
- */
+let globalActiveVoiceId = null;
+
 const AbstractView = ({ article, onSave, saving }) => {
-  // Use 'text' as the prop for the abstract content to match CitationCard's current usage
   const abstractText = article?.abstract || 'No abstract available.';
   const title = article?.title || 'Untitled';
   const pubmedId = article?.pmid;
   const contentRef = useRef(null);
-  const [hasStructure, setHasStructure] = useState(false);
+
+  // Initial state check from the backend article payload
+  const [hasStructure, setHasStructure] = useState(!!article?.is3DViewerEligible);
   const [structureData, setStructureData] = useState(null);
-
-  // 1. Check for structural data availability ONLY when needed
-  // We can use the 'open' state of the parent <details> or just trigger it on mount
-  // Since AbstractView is inside <details>, it mounts when the user first expands it?
-  // Actually, in CitationCard it's always in the JSX.
-  // Let's use an Intersection Observer or just a "load" trigger.
-  // For now, let's just add a small random delay to stagger the initial burst
-  useEffect(() => {
-    if (pubmedId) {
-      const staggeredDelay = Math.random() * 2000; // 0-2 seconds delay
-      const timer = setTimeout(() => {
-        fetch(`/api/structure/${pubmedId}`)
-          .then(res => res.json())
-          .then(result => {
-            if (result.data && (result.data.url || (Array.isArray(result.data) && result.data.length > 0))) {
-              setHasStructure(true);
-              setStructureData(result.data);
-            } else {
-              setHasStructure(false);
-            }
-          })
-          .catch(() => setHasStructure(false));
-      }, staggeredDelay);
-      return () => clearTimeout(timer);
-    }
-  }, [pubmedId]);
-
-  // 2. Get the current active language from the Google Translate cookie
-  const targetLanguage = getActiveLanguage();
   
-  // 3. Use the global speech hook with the target language code.
+  // Track whether the asynchronous rehydration is actively working
+  const [isRehydrating, setIsRehydrating] = useState(true);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    if (pubmedId && hasStructure && !structureData) {
+      setIsRehydrating(true);
+      
+      fetch(`/api/structure/${pubmedId}`)
+        .then(res => res.json())
+        .then(result => {
+          if (!isMounted) return;
+          
+          if (result.data && (result.data.url || (Array.isArray(result.data) && result.data.length > 0))) {
+            setStructureData(result.data);
+            setHasStructure(true);
+          } else {
+            setHasStructure(false);
+          }
+        })
+        .catch(() => {
+          if (isMounted) setHasStructure(false);
+        })
+        .finally(() => {
+          if (isMounted) setIsRehydrating(false);
+        });
+    } else {
+      setIsRehydrating(false);
+    }
+
+    return () => {
+      isMounted = false;
+    };
+  }, [pubmedId, hasStructure, structureData]);
+
+  const targetLanguage = getActiveLanguage();
+  const [localIsSpeaking, setLocalIsSpeaking] = useState(false);
   const { speak, stop, isSpeaking } = useNativeSpeech(targetLanguage);
+
+  useEffect(() => {
+    if (!isSpeaking && globalActiveVoiceId === pubmedId) {
+      globalActiveVoiceId = null;
+      window.dispatchEvent(new Event('abstract-speech-sync'));
+    }
+    const handleSync = () => setLocalIsSpeaking(globalActiveVoiceId === pubmedId);
+    window.addEventListener('abstract-speech-sync', handleSync);
+    return () => window.removeEventListener('abstract-speech-sync', handleSync);
+  }, [isSpeaking, pubmedId]);
 
   const handleSpeak = () => {
     const textToRead = contentRef.current ? contentRef.current.innerText : abstractText;
+    globalActiveVoiceId = pubmedId;
+    window.dispatchEvent(new Event('abstract-speech-sync'));
     speak(textToRead);
   };
 
+  const handleStop = () => {
+    globalActiveVoiceId = null;
+    window.dispatchEvent(new Event('abstract-speech-sync'));
+    stop();
+  };
+
   const handleLaunchViewer = () => {
-    // Optimization: Pass the already-fetched data to the new tab via sessionStorage
-    if (structureData) {
-      sessionStorage.setItem(`structure_${pubmedId}`, JSON.stringify(structureData));
-    }
+    // If clicking is allowed, structureData is fully locked and populated
+    if (!structureData) return;
+    
+    sessionStorage.setItem(`structure_${pubmedId}`, JSON.stringify(structureData));
     window.open(`/viewer/${pubmedId}`, '_blank');
   };
 
   return (
     <section className="abstract-card">
       <div className="abstract-header notranslate">
-        {title && (
-          <h2 className="abstract-title" key={`title-${targetLanguage}`}>
-            <span>{title}</span>
-          </h2>
-        )}
-        <div className="speech-controls">
-          {hasStructure && (
-            <button 
-              className="speech-btn viewer"
-              onClick={handleLaunchViewer}
-              aria-label="Launch 3D Viewer"
-              title="Launch 3D Viewer"
-            >
-              <span className="icon">🧬</span> <span>3D Viewer</span>
-            </button>
-          )}
+        {title && <h2 className="abstract-title" key={`title-${targetLanguage}`}><span>{title}</span></h2>}
+        <div className="speech-controls" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
           {onSave && (
-            <button 
-              className="speech-btn save" 
-              onClick={onSave}
-              disabled={saving}
-              aria-label="Save to Research Folder"
-              title="Save to Research Folder"
-            >
+            <button className="speech-btn save" onClick={onSave} disabled={saving}>
               <span className="icon">💾</span> <span>{saving ? 'Saving...' : 'Save'}</span>
             </button>
           )}
-          {!isSpeaking ? (
-            <button 
-              className="speech-btn play" 
-              onClick={handleSpeak}
-              aria-label={`Read abstract in ${targetLanguage}`}
-              title={`Read abstract in ${targetLanguage.toUpperCase()}`}
-            >
+          {!localIsSpeaking ? (
+            <button className="speech-btn play" onClick={handleSpeak}>
               <span className="icon">▶</span> <span>Play ({targetLanguage.toUpperCase()})</span>
             </button>
           ) : (
-            <button 
-              className="speech-btn stop" 
-              onClick={stop}
-              aria-label="Stop reading"
-            >
+            <button className="speech-btn stop" onClick={handleStop}>
               <span className="icon">■</span> <span>Stop</span>
+            </button>
+          )}
+          
+          {hasStructure && (
+            <button 
+              className={`speech-btn viewer ${isRehydrating ? 'loading' : 'ready'}`}
+              onClick={handleLaunchViewer} 
+              disabled={isRehydrating}
+              style={{
+                opacity: isRehydrating ? 0.7 : 1,
+                cursor: isRehydrating ? 'not-allowed' : 'pointer',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              {isRehydrating ? (
+                <>
+                  <span className="icon">⏳</span> <span>...loading 3D info</span>
+                </>
+              ) : (
+                <>
+                  <span className="icon">🧬</span> <span>3D Viewer</span>
+                </>
+              )}
             </button>
           )}
         </div>
       </div>
-
+      <VoiceSettings initialOpen={false} />
       <div className="abstract-body" key={`body-${targetLanguage}`} ref={contentRef}>
         <p><span>{abstractText}</span></p>
       </div>
-
-      <style>{`
-        .abstract-card {
-          background: var(--bg-secondary, #ffffff);
-          color: var(--text-primary, #1a1a1a);
-          border: 1px solid var(--border-color, #e5e7eb);
-          border-radius: 12px;
-          padding: 24px;
-          margin: 16px 0;
-          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-          transition: background 0.3s ease, border-color 0.3s ease;
-        }
-
-        .abstract-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: flex-start;
-          margin-bottom: 20px;
-          gap: 16px;
-        }
-
-        .abstract-title {
-          margin: 0;
-          font-size: 1.25rem;
-          font-weight: 600;
-          line-height: 1.4;
-        }
-
-        .speech-controls {
-          flex-shrink: 0;
-          display: flex;
-          flex-direction: column;
-          gap: 8px;
-          min-width: 140px;
-        }
-
-        .speech-btn {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          padding: 8px 16px;
-          border-radius: 6px;
-          font-size: 0.875rem;
-          font-weight: 500;
-          cursor: pointer;
-          border: none;
-          transition: opacity 0.2s;
-          white-space: nowrap;
-        }
-
-        .speech-btn.viewer {
-          background-color: #7c3aed;
-          color: white;
-        }
-
-        .speech-btn.play {
-          background-color: #2563eb;
-          color: white;
-        }
-
-        .speech-btn.save {
-          background-color: #059669;
-          color: white;
-        }
-
-        .speech-btn.stop {
-          background-color: #dc2626;
-          color: white;
-        }
-
-        .speech-btn:hover {
-          opacity: 0.9;
-        }
-
-        .abstract-body {
-          line-height: 1.6;
-          font-size: 1rem;
-          opacity: 0.9;
-          white-space: pre-wrap;
-        }
-
-        .icon {
-          font-size: 12px;
-        }
-      `}</style>
     </section>
   );
 };

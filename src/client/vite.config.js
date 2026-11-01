@@ -14,6 +14,24 @@ export default defineConfig({
   build: {
     outDir: '../../dist',
     emptyOutDir: true,
+    chunkSizeWarningLimit: 3500,
+    rollupOptions: {
+      output: {
+        // Automatically split major third-party libraries into independent bundles
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('molstar')) {
+              return 'vendor-molstar';
+            }
+            if (id.includes('zod')) {
+              return 'vendor-zod';
+            }
+            // Collects standard libraries like react, zod, etc.
+            return 'vendor-core'; 
+          }
+        }
+      }
+    }
   },
   test: {
     globals: true,

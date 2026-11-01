@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Tooltip from './Tooltip';
 import AbstractView from './AbstractView';
 import { getActiveLanguage } from '../utils/languageDetection';
+import VoiceSettings from './VoiceSettings';
 
 export default function CitationCard({ article }) {
   const {

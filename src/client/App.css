@@ -1,6 +1,9 @@
 @import './styles/tokens.css';
 @import './styles/base.css';
 
+/* ==========================================================================
+   1. GLOBAL SYSTEM VARIABLES & BASE ROOT DEFS
+   ========================================================================== */
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -14,21 +17,23 @@
   -moz-osx-font-smoothing: grayscale;
 
   /* Light Mode Variables */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8fafc;
-  --text-primary: #0f172a;
-  --text-secondary: #64748b;
-  --border-color: #e2e8f0;
-  --accent-color: #3b82f6;
-  --accent-hover: #2563eb;
-  --danger-color: #ef4444;
-  --danger-bg: #fee2e2;
-  --danger-border: #fca5a5;
+  --bg-primary: #fcfbf9;
+  --bg-secondary: #f4f1eb;
+  --bg-tertiary: #eae5db;
+  --text-primary: #1c1a17;
+  --text-secondary: #5c5850;
+  --border-color: #e5dfd3;
+  --accent-color: #1d61d6;
+  --accent-hover: #134db3;
+  --danger-color: #c92a2a;
+  --danger-bg: #fdf2f2;
+  --danger-border: #f8b4b4;
 }
 
 [data-theme='dark'] {
   --bg-primary: #0f172a;
   --bg-secondary: #1e293b;
+  --bg-tertiary: #334155;
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
   --border-color: #334155;
@@ -81,6 +86,9 @@ body {
   width: 100%;
 }
 
+/* ==========================================================================
+   2. APP HEADER & BANNER ACTIONS
+   ========================================================================== */
 header {
   padding: var(--space-sm) var(--space-md);
   background-color: var(--bg-secondary);
@@ -89,6 +97,54 @@ header {
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
+/* Mobile Viewport Style (Default Layout) */
+.app-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  text-align: center;
+}
+
+.header-title-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-title-group h1 {
+  margin: 0;
+  line-height: 1;
+}
+
+.header-title-group .health-check {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-secondary, #666);
+}
+
+/* Tablet & Desktop Viewport Style (Bigger Screens) */
+@media (min-width: 768px) {
+  .app-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    gap: 0;
+  }
+
+  .header-title-group {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+}
+
+/* ==========================================================================
+   3. SEARCH CONTAINER & FORMS
+   ========================================================================== */
 .search-section {
   background-color: var(--bg-secondary);
   padding: var(--space-md);
@@ -131,7 +187,11 @@ input {
   }
 }
 
-button, .btn-primary {
+/* ==========================================================================
+   4. SYSTEM BUTTON ELEMENTS
+   ========================================================================== */
+button,
+.btn-primary {
   padding: 0.8rem 1.5rem;
   border-radius: 6px;
   border: none;
@@ -145,11 +205,13 @@ button, .btn-primary {
   transition: all 0.25s;
 }
 
-button:hover, .btn-primary:hover {
+button:hover,
+.btn-primary:hover {
   background-color: var(--accent-hover);
 }
 
-button:disabled, .btn-primary:disabled {
+button:disabled,
+.btn-primary:disabled {
   background-color: var(--border-color);
   color: var(--text-secondary);
   cursor: not-allowed;
@@ -174,6 +236,29 @@ button:disabled, .btn-primary:disabled {
   color: white;
 }
 
+.btn-save {
+  align-self: flex-start;
+  background-color: #38a169;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  cursor: pointer;
+  min-height: var(--touch-target-min);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+[data-theme='dark'] .btn-save {
+  background-color: #059669;
+}
+
+/* ==========================================================================
+   5. RESULTS VIEW & CITATION INFRASTRUCTURE
+   ========================================================================== */
 .results {
   text-align: left;
   background: var(--bg-secondary);
@@ -183,17 +268,20 @@ button:disabled, .btn-primary:disabled {
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-footer {
-  margin-top: var(--space-lg);
-  font-size: var(--font-size-xs);
-  color: var(--text-secondary);
-}
-
 .citation-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(clamp(280px, 100%, 400px), 1fr));
+  /* Symmetrical two-column grid split layout on larger desktops */
+  grid-template-columns: 1fr 1fr;
   gap: var(--space-md);
   align-items: start;
+  width: 100%;
+}
+
+/* RESPONSIVE GRID BREAK: Forces results layout to 1 column on smaller tablets and mobile */
+@media (max-width: 768px) {
+  .citation-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .citation-card {
@@ -204,7 +292,7 @@ footer {
   border-radius: 8px;
   padding: var(--space-md);
   background-color: var(--bg-primary);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   box-sizing: border-box;
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
@@ -246,26 +334,6 @@ footer {
   padding-top: var(--space-md);
 }
 
-.btn-save {
-  align-self: flex-start;
-  background-color: #38a169;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  font-size: var(--font-size-sm);
-  font-weight: 600;
-  cursor: pointer;
-  min-height: var(--touch-target-min);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-[data-theme='dark'] .btn-save {
-  background-color: #059669;
-}
-
 .citation-card details {
   width: 100%;
 }
@@ -298,7 +366,131 @@ footer {
   color: var(--text-primary);
 }
 
-/* Pagination Control Styles */
+.abstract-card {
+  background: var(--bg-secondary, #ffffff);
+  color: var(--text-primary, #1a1a1a);
+  border: 1px solid var(--border-color, #e5e7eb);
+  border-radius: 12px;
+  padding: 24px;
+  margin: 16px 0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s ease, border-color 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+}
+
+.abstract-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  gap: 16px;
+}
+
+.abstract-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: left;
+}
+
+.speech-controls {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 140px;
+}
+
+.speech-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.speech-btn.viewer {
+  background-color: #7c3aed;
+  color: white;
+}
+
+.speech-btn.play {
+  background-color: #2563eb;
+  color: white;
+}
+
+.speech-btn.save {
+  background-color: #059669;
+  color: white;
+}
+
+.speech-btn.stop {
+  background-color: #dc2626;
+  color: white;
+}
+
+.speech-btn:hover {
+  opacity: 0.9;
+}
+
+.abstract-body {
+  line-height: 1.6;
+  font-size: 1rem;
+  opacity: 0.9;
+  white-space: pre-wrap;
+  text-align: left;
+}
+
+.icon {
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  .abstract-card {
+    padding: 16px;
+  }
+  .abstract-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+  .speech-controls {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    min-width: 0;
+    gap: 8px;
+  }
+  .speech-btn {
+    flex: 1 1 calc(50% - 4px);
+    min-width: 120px;
+  }
+}
+
+@media (max-width: 380px) {
+  .speech-btn {
+    flex: 1 1 100%;
+  }
+}
+
+
+/* ==========================================================================
+   6. PAGINATION CONTROLS
+   ========================================================================== */
 .pagination-control {
   display: flex;
   justify-content: center;
@@ -317,7 +509,8 @@ footer {
   }
 }
 
-.prev-button, .next-button {
+.prev-button,
+.next-button {
   padding: 10px 20px;
   border-radius: 6px;
   font-weight: 600;
@@ -333,7 +526,9 @@ footer {
 }
 
 @media (max-width: 480px) {
-  .prev-button, .next-button {
+
+  .prev-button,
+  .next-button {
     padding: 8px 16px;
     font-size: var(--font-size-sm);
     flex: 1;
@@ -342,11 +537,13 @@ footer {
   }
 }
 
-.prev-button:hover:not(:disabled), .next-button:hover:not(:disabled) {
+.prev-button:hover:not(:disabled),
+.next-button:hover:not(:disabled) {
   background-color: var(--accent-hover);
 }
 
-.prev-button:disabled, .next-button:disabled {
+.prev-button:disabled,
+.next-button:disabled {
   background-color: var(--bg-secondary);
   color: var(--text-secondary);
   cursor: not-allowed;
@@ -358,27 +555,344 @@ footer {
   color: var(--text-secondary);
 }
 
+/* ==========================================================================
+   7. MAIN PANELS STRUCTURAL CODES (REVISED FOR MAX-WIDTH INPUT ROW)
+   ========================================================================== */
 .main-dashboard {
   display: flex;
-  gap: var(--space-md);
-  width: 100%;
+  flex-direction: column;
+  gap: 24px;
+  padding: 12px;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  overflow-x: hidden !important;
 }
 
-.search-pane {
-  flex: 1;
-  min-width: 0;
+.main-addl-tools {
+  display: flex;
+  flex-direction: column;
 }
 
 .voice-pane {
-  width: 300px;
-  flex-shrink: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
+.voice-settings-panel {
+  position: relative;
+  width: 100%;
+  padding: 24px 20px 20px 20px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.voice-close-floating-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 6px 10px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+}
+
+.voice-close-floating-btn:hover {
+  color: var(--text-danger, #ef4444);
+  background-color: var(--bg-secondary);
+}
+
+.voice-pane-toggle-container {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.voice-open-btn {
+  background: none;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: 200;
+  font-Size: var(--font-size-base, 1rem);
+  color: var(--text-primary);
+  transition: none !important;
+}
+
+.voice-open-btn:hover {
+  color: #ffffff !important;
+}
+
+.search-3d-global-btn {
+  padding: 10px;
+  background: transparent;
+  color: var(--text-primary, #1c1a17);
+  border: none;
+  cursor: pointer;
+  font-weight: 200;
+  font-size: var(--font-size-base, 1rem);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  min-height: auto;
+}
+
+.search-3d-global-btn:not(.is-active):hover {
+  background-color: #7c3aed;
+  color: #ffffff;
+}
+
+.search-3d-global-btn.is-active {
+  color: var(--danger-color, #c92a2a);
+}
+
+.search-3d-global-btn.is-active:hover {
+  background-color: var(--danger-bg, #fdf2f2);
+  color: #ffffff;
+}
+
+.search-pane {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.pubmed-search-container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.pubmed-search-container h2 {
+  align-self: flex-start;
+  margin-bottom: 12px;
+}
+
+.pubmed-inline-form {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+
+.pubmed-inline-form input.flex-grow {
+  flex: 1 1 auto;
+  width: 100%;
+  max-width: none !important;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.pubmed-inline-form datalist {
+  display: none !important;
+}
+
+.pubmed-inline-form button.btn-primary,
+.pubmed-inline-form button.btn-danger {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.mesh-suggester-toggle-container {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.mesh-open-btn {
+  background: none;
+  border: none;
+  padding: 8px 0;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: none !important;
+}
+
+.mesh-suggester {
+  position: relative;
+  width: 100%;
+  padding: 30px 24px 20px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.mesh-close-floating-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 6px 10px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+}
+
+.mesh-close-floating-btn:hover {
+  color: var(--text-danger, #ef4444);
+  background-color: var(--bg-secondary);
+}
+
+.control-panels {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+  .control-panels {
+    grid-template-columns: 1fr !important;
+    gap: 20px;
+  }
+}
+
+.date-filter-panel {
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+}
+
+@media (max-width: 600px) {
+  .date-filter-panel {
+    padding-left: 0 !important;
+  }
+}
+
+.date-toggle-label {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+}
+
+.hidden-checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+}
+
+.date-filter-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.date-input {
+  width: 100% !important;
+  box-sizing: border-box;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.date-apply-btn {
+  width: 100% !important;
+  box-sizing: border-box;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  background-color: var(--accent-color);
+  color: var(--bg-primary);
+}
+
+.date-apply-btn:hover {
+  background-color: var(--accent-hover);
+}
+
+
+/* ==========================================================================
+8. LEGACY OUTSIDE FRAMEBREAK MEDIA BREAKPOINTS
+========================================================================== */
 @media (max-width: 900px) {
   .main-dashboard {
     flex-direction: column;
   }
+
   .voice-pane {
     width: 100%;
   }
+}
+
+footer {
+  margin-top: var(--space-lg);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   9. MOLSTAR VIEWER PORTAL & LAYOUT OVERRIDES 
+   ========================================================================== */
+body:has(.molstar-app-container) {
+  flex-direction: column !important;
+  align-items: stretch !important;
+  place-items: initial !important;
+  padding: 16px !important;
+}
+
+.viewer-header-portal-content {
+  width: 100% !important;
+  display: block !important;
+  box-sizing: border-box !important;
+  margin-bottom: 12px !important;
+  flex: 0 0 auto !important;
+}
+
+.molstar-app-container {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 500px !important;
+  flex: 1 1 auto !important;
+}
+
+#header-portal .viewer-header-portal-content .search-bar {
+  display: inline-flex !important;
+  gap: 8px !important;
 }
