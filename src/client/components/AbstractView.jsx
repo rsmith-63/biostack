@@ -18,38 +18,58 @@ const AbstractView = ({ article, onSave, saving }) => {
   // Track whether the asynchronous rehydration is actively working
   const [isRehydrating, setIsRehydrating] = useState(true);
 
-  useEffect(() => {
-    let isMounted = true;
+    useEffect(() => {
+  let isMounted = true;
 
-    if (pubmedId && hasStructure && !structureData) {
-      setIsRehydrating(true);
+  // Reset states cleanly when pubmedId changes
+  setStructureData(null);
+
+  // If the article isn't eligible, short-circuit immediately
+  if (!article?.is3DViewerEligible || !pubmedId) {
+    setHasStructure(false);
+    setIsRehydrating(false);
+    return;
+  }
+
+  // If it is eligible, start rehydrating and fetch data
+  setIsRehydrating(true);
+  setHasStructure(true);
+
+  fetch(`/api/structure/${pubmedId}`)
+    .then(res => {
+      if (!res.ok) throw new Error('Network error');
+      return res.json();
+    })
+    .then(result => {
+      if (!isMounted) return;
       
-      fetch(`/api/structure/${pubmedId}`)
-        .then(res => res.json())
-        .then(result => {
-          if (!isMounted) return;
-          
-          if (result.data && (result.data.url || (Array.isArray(result.data) && result.data.length > 0))) {
-            setStructureData(result.data);
-            setHasStructure(true);
-          } else {
-            setHasStructure(false);
-          }
-        })
-        .catch(() => {
-          if (isMounted) setHasStructure(false);
-        })
-        .finally(() => {
-          if (isMounted) setIsRehydrating(false);
-        });
-    } else {
-      setIsRehydrating(false);
-    }
+      const isValidData = result.data && (result.data.url || (Array.isArray(result.data) && result.data.length > 0));
+      
+      if (isValidData) {
+        setStructureData(result.data);
+        setHasStructure(true);
+      } else {
+        setHasStructure(false);
+      }
+    })
+    .catch((err) => {
+      console.error("Structure fetch failed:", err);
+      if (isMounted) {
+        setHasStructure(false);
+      }
+    })
+    .finally(() => {
+      if (isMounted) {
+        setIsRehydrating(false);
+      }
+    });
 
-    return () => {
-      isMounted = false;
-    };
-  }, [pubmedId, hasStructure, structureData]);
+  return () => {
+    isMounted = false;
+  };
+  // improved dependencies to eliminate looping render cycles
+}, [pubmedId, article?.is3DViewerEligible]); 
+
 
   const targetLanguage = getActiveLanguage();
   const [localIsSpeaking, setLocalIsSpeaking] = useState(false);
